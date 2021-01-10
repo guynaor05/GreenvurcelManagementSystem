@@ -1,0 +1,9 @@
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\bin\Debug\netcoreapp3.1\GreenvurcelDAL.deps.json
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\bin\Debug\netcoreapp3.1\GreenvurcelDAL.dll
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\bin\Debug\netcoreapp3.1\GreenvurcelDAL.pdb
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\obj\Debug\netcoreapp3.1\GreenvurcelDAL.csprojAssemblyReference.cache
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\obj\Debug\netcoreapp3.1\GreenvurcelDAL.AssemblyInfoInputs.cache
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\obj\Debug\netcoreapp3.1\GreenvurcelDAL.AssemblyInfo.cs
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\obj\Debug\netcoreapp3.1\GreenvurcelDAL.csproj.CoreCompileInputs.cache
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\obj\Debug\netcoreapp3.1\GreenvurcelDAL.dll
+C:\Users\Guy\C# Projects\GreenvurcelManagementSystem\GreenvurcelManagementSystem\GreenvurcelDAL\obj\Debug\netcoreapp3.1\GreenvurcelDAL.pdb
