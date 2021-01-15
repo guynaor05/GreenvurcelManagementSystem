@@ -27,7 +27,7 @@
             <TextBlock Text="vurcel" Foreground="#FFAEACAC" FontSize="110" FontWeight="SemiBold" FontFamily="Century Gothic"/>
         </StackPanel>
         
-        <TabControl BorderThickness="0" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="20" Background="{x:Null}">
+        <TabControl BorderThickness="0" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="18" Background="{x:Null}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabPanel}">
                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -44,8 +44,11 @@
             <TabItem Header="Reports">
                 <local:ReportsView Margin="20 20"/>
             </TabItem>
-            <TabItem Header="Products">
+            <TabItem Header="Customer Producsts">
                 <local:ProductsView Margin="20 20"/>
+            </TabItem>
+            <TabItem Header="Update Customer Details">
+                <local:UpdateDetailsView Margin="20 20"/>
             </TabItem>
         </TabControl>
     </Grid>
