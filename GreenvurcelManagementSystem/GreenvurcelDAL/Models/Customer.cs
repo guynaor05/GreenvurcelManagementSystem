@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace GreenvurcelDAL
 {
     public class Customer
     {
+        [BsonId]
+        public long _id;
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BirthDate { get; set; }

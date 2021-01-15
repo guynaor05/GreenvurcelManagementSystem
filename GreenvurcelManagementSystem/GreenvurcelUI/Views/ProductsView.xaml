@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="GreenvurcelUI.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GreenvurcelUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" FontWeight="UltraLight" FontFamily="Century Gothic">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Name="Products" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" IsReadOnly="True" MaxWidth="750" MaxHeight="300">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="ProductName" Binding="{Binding ProductName}"/>
+            </DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Gray"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
+            <StackPanel Margin="10 5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Name" Style="{StaticResource RegistrationPart}"/>
+                </StackPanel>
+                <TextBox x:Name="Name" Style="{StaticResource TextBox}" BorderBrush="Black"/>
+            </StackPanel>
+            <StackPanel Margin="10 5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Product Name" Style="{StaticResource RegistrationPart}"/>
+                </StackPanel>
+                <TextBox x:Name="ProductName" Style="{StaticResource TextBox}" BorderBrush="Black"/>
+            </StackPanel>
+            <StackPanel Margin="10 5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Category" Style="{StaticResource RegistrationPart}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="Category" Style="{StaticResource TextBox}" BorderBrush="Black"/>
+                    <Button x:Name="AddProduct" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="AddProduct_Click">
+                        <Grid>
+                            <Path Stretch="Fill" Fill="LightGreen" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="10 5" HorizontalAlignment="Center">
+            <TextBlock Text="Filter" Style="{StaticResource RegistrationPart}"/>
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                <ComboBox x:Name="FilterComboBox">
+                    <ComboBoxItem IsSelected="True" Content="Name"/>
+                    <ComboBoxItem Content="Product Name"/>
+                </ComboBox>
+                <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" BorderBrush="Gray"/>
+                <Button x:Name="FilterButton" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="FilterButton_Click">
+                    <Grid>
+                        <Path Stretch="Fill" Fill="white" Height="20" Width="20" Data="M408.973,142.689C368.113,101.829,313.785,79.326,256,79.326h-31.717l50.907-51.032L246.826,0L147.68,99.389    l97.852,99.488l28.563-28.093l-50.551-51.396H256c97.198,0,176.275,79.076,176.275,176.275S353.198,471.938,256,471.938    S79.725,392.861,79.725,295.659v-20.031l-40.062,0.004v20.031c0,57.786,22.503,112.113,63.364,152.973    C143.887,489.497,198.215,512,256,512c57.785,0,112.113-22.503,152.973-63.364c40.861-40.861,63.364-95.188,63.364-152.973    S449.834,183.55,408.973,142.689z"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="ResetButton" Content="Reset" Foreground="White" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="ResetButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

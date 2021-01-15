@@ -8,40 +8,95 @@ namespace GreenvurcelDAL
 {
     public class CustomerContext
     {
-        private IMongoDatabase db;
-        public CustomerContext(string database)
+        #region Constants
+        
+        private const string DATABASE_NAME = "GreenvurcelDB";
+        private const string COLLECTION_NAME_CUSTOMERS = "Customers";
+        private const string COLLECTION_NAME_COUNTER = "Counter";
+
+        #endregion
+
+        private IMongoDatabase _database;
+        private static CustomerContext _instance;
+
+        #region Singleton Implementation
+
+        public static CustomerContext Instance
         {
-            var client = new MongoClient();
-            db = client.GetDatabase(database);
-        }
-        public void InsertRecord<T>(string table, T record)
-        {
-            var collection = db.GetCollection<T>(table);
-            collection.InsertOne(record);
-        }
-        public List<T> LoadRecords<T>(string table)
-        {
-            var collection = db.GetCollection<T>(table);
-            return collection.Find(new BsonDocument()).ToList();
-        }
-        public T LoadRecordById<T>(string table, string id)
-        {
-            var collection = db.GetCollection<T>(table);
-            var Filter = Builders<T>.Filter.Eq("Id", id);
-            return collection.Find(Filter).First();
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CustomerContext();
+                }
+
+                return _instance;
+            }
         }
 
-        [Obsolete]
-        public void UpsertRecord<T>(string table, string id, T record)
+        private CustomerContext()
         {
-            var collection = db.GetCollection<T>(table);
-            var result = collection.ReplaceOne(new BsonDocument("_id", id), record, new UpdateOptions { IsUpsert = true });
+            var client = new MongoClient();
+            _database = client.GetDatabase(DATABASE_NAME);
         }
-        public void DeleteRecord<T>(string table, string id)
+
+        #endregion
+
+        #region Public Methods
+
+        public void InsertCustomer(Customer customer)
         {
-            var collection = db.GetCollection<T>(table);
-            var Filter = Builders<T>.Filter.Eq("Id", id);
-            collection.DeleteOne(Filter);
+            var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+            long id = GetNextCounterValue();
+            customer._id = id;
+
+            collection.InsertOne(customer);
         }
-    }   
+
+        private long GetNextCounterValue()
+        {
+            var collection = _database.GetCollection<Counter>(COLLECTION_NAME_COUNTER);
+            var filter = Builders<Counter>.Filter.Eq(col => col.Id, "Counter");
+
+            // did not find counter document, we need to create new one
+            if (collection.Find(filter).FirstOrDefault() == null)
+            {
+                collection.InsertOne(new Counter { Id = "Counter", Value = 1 });
+                return 1;
+            }
+
+            var update = Builders<Counter>.Update.Inc(col => col.Value, 1);
+            collection.FindOneAndUpdate(filter, update);
+            
+            return collection.Find(filter).FirstOrDefault().Value;
+        }
+
+        public List<Customer> LoadCustomers()
+        {
+            var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+            return collection.Find(new BsonDocument()).ToList();
+        }
+
+        /// <summary>
+        /// returns a customer with id if exist and null otherweise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Customer LoadCustomerById(string id)
+        {
+            var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+            var filter = Builders<Customer>.Filter.Eq("_id", long.Parse(id));
+            return collection.Find(filter).FirstOrDefault();
+        }
+
+        public void UpdateCustomer(string id, Customer newCustomer)
+        {
+            var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+            var filter = Builders<Customer>.Filter.Eq(customer => customer._id, long.Parse(id));
+            newCustomer._id = long.Parse(id);
+
+            collection.ReplaceOne(filter, newCustomer);
+        }
+        #endregion
+    }
 }
