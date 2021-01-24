@@ -6,7 +6,7 @@ namespace GreenvurcelDAL
     public class Customer
     {
         [BsonId]
-        public long _id;
+        public long _id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BirthDate { get; set; }
@@ -21,6 +21,8 @@ namespace GreenvurcelDAL
         public string CompanyName { get; set; }
         public List<Phone> Phones { get; set; }
         public List<Email> Emails { get; set; }
+        public string Notes { get; set; }
+
     }
 }
 

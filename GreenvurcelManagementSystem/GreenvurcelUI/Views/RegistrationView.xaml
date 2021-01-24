@@ -24,98 +24,74 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <Expander Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Header="Personal" IsExpanded="True" FontSize="20">
+
+        <Expander x:Name="Personal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Header="Personal" FontSize="20" Expanded="Personal_Expanded">
             <Expander.Content>
                 <StackPanel Margin="10 5" Orientation="Horizontal">
                     <StackPanel Margin="10 5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="First Name" Style="{StaticResource RegistrationPart}"/>
-                        </StackPanel>
+                        <TextBlock Text="First Name" Style="{StaticResource RegistrationPart}"/>
                         <TextBox x:Name="FirstName" Style="{StaticResource TextBox}" TextChanged="FirstName_TextChanged"/>
                     </StackPanel>
 
                     <StackPanel Margin="10 5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Last Name" Style="{StaticResource RegistrationPart}"/>
-                        </StackPanel>
+                        <TextBlock Text="Last Name" Style="{StaticResource RegistrationPart}"/>
                         <TextBox x:Name="LastName" Style="{StaticResource TextBox}" TextChanged="LastName_TextChanged"/>
                     </StackPanel>
 
                     <StackPanel Margin="10 5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Birth Date" Style="{StaticResource RegistrationPart}"/>
-                        </StackPanel>
+                        <TextBlock Text="Birth Date" Style="{StaticResource RegistrationPart}"/>
                         <DatePicker x:Name="BirthDate" Margin="-2 -3 0 0" DisplayDateEnd="{x:Static sys:DateTime.Now}" Style="{StaticResource DatePicker}" SelectedDateChanged="BirthDate_SelectedDateChanged"/>
                     </StackPanel>
                     <StackPanel Margin="10 5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Grade" Style="{StaticResource RegistrationPart}"/>
-                        </StackPanel>
+                        <TextBlock Text="Grade" Style="{StaticResource RegistrationPart}"/>
                         <TextBox x:Name="Grade" Style="{StaticResource TextBox}" TextChanged="Grade_TextChanged"/>
                     </StackPanel>
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <Expander Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Header="Address" FontSize="20">
+        <Expander x:Name="Address" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Header="Address" FontSize="20" Expanded="Address_Expanded">
             <Expander.Content>
                 <StackPanel Margin="10 5" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Home Country" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Home Country" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}" TextChanged="HomeCountry_TextChanged"/>
                         </StackPanel>
                         <StackPanel  Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Home City" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Home City" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" TextChanged="HomeCity_TextChanged"/>
                         </StackPanel>
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Home Street" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Home Street" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" TextChanged="HomeStreet_TextChanged"/>
                         </StackPanel>
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Postal Code" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Postal Code" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="PostalCode" Style="{StaticResource TextBox}" TextChanged="PostalCode_TextChanged"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Work Country" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Work Country" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}" TextChanged="WorkCountry_TextChanged"/>
                         </StackPanel>
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Work City" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Work City" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" TextChanged="WorkCity_TextChanged"/>
                         </StackPanel>
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Work Street" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Work Street" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" TextChanged="WorkStreet_TextChanged"/>
                         </StackPanel>
                         <StackPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Company Name" Style="{StaticResource RegistrationPart}"/>
-                            </StackPanel>
+                            <TextBlock Text="Company Name" Style="{StaticResource RegistrationPart}"/>
                             <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}" TextChanged="CompanyName_TextChanged"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <Expander Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Header="Contact" FontSize="20">
+        <Expander x:Name="Contact" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Header="Contact" FontSize="20" Expanded="Contact_Expanded">
             <Expander.Content>
                 <StackPanel Margin="10 5" Orientation="Horizontal" >
                     <StackPanel Orientation="Vertical" Margin="10 5">
@@ -196,6 +172,16 @@
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <Button x:Name="SubmitButton" Content="Submit" Width="100" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="SubmitButton_Click" IsEnabled="False"/>
+        <Expander x:Name="Additionals" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Header="Additionals" FontSize="20" Expanded="Additionals_Expanded">
+            <Expander.Content>
+                <StackPanel Margin="10 5" Orientation="Horizontal">
+                    <StackPanel Margin="10 5">
+                        <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="640" MinHeight="50" MaxHeight="50" AcceptsReturn="True" TextChanged="Notes_TextChanged"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <Button x:Name="SubmitButton" Content="Submit" Width="100" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="SubmitButton_Click" IsEnabled="False"/>
     </Grid>
 </UserControl>

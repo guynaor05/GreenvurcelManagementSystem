@@ -21,10 +21,17 @@ namespace GreenvurcelUI
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public static event Action<long> CustomerUpdateRequest;
         public MainWindow()
         {
             InitializeComponent();
+            ReportsView.CustomerUpdateRequest += ReportsView_CustomerUpdateRequest;
+        }
+
+        private void ReportsView_CustomerUpdateRequest(long obj)
+        {
+            MainTabControl.SelectedIndex = 5;
+            CustomerUpdateRequest?.Invoke(obj);
         }
     }
 }

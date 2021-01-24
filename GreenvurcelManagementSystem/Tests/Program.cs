@@ -26,7 +26,8 @@ namespace Tests
                 Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0" }, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
                 Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0" }, new Email { EmailType = "Personal", EmailAddress = "1" } }
             };
-
+            Customer details = CustomerContext.Instance.LoadCustomerById("2", out bool succeeded);
+            Console.WriteLine();
             //CustomerContext.Instance.InsertCustomer(customer);
 
             //var a = CustomerContext.Instance.LoadCustomers();
@@ -35,14 +36,14 @@ namespace Tests
 
             //CustomerContext.Instance.UpdateCustomer("1", customer);
 
-            var p = new CustomerProduct
-            {
-                CustomerID = 2,
-                ProductName = "a",
-                CategoryName = "ABBBB"
-            };
+            //var p = new CustomerProduct
+            //{
+            //    CustomerID = 2,
+            //    ProductName = "a",
+            //    CategoryName = "ABBBB"
+            //};
             
-            CustomerProductsContext.Instance.DeleteCustomerProduct(new ObjectId("6001e2bcd661ffc5fbd0ccff"));
+            //CustomerProductsContext.Instance.DeleteCustomerProduct(new ObjectId("6001e2bcd661ffc5fbd0ccff"));
 
             Console.WriteLine();
         }

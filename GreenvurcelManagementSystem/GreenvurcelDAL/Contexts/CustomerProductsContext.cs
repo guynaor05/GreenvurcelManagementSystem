@@ -14,9 +14,13 @@ namespace GreenvurcelDAL
         private const string COLLECTION_NAME_CUSTOMER_PRODUCTS = "CustomerProducts";
 
         #endregion
+        #region Events
 
+        public event Action ProdcutAdded;
+
+        #endregion
         #region Data Members
-        
+
         private IMongoDatabase _database;
 
         #endregion
@@ -48,23 +52,48 @@ namespace GreenvurcelDAL
 
         #region Public Methods
 
-        public void InsertCustomerProduct(CustomerProduct CustomerProduct)
+        public bool InsertCustomerProduct(CustomerProduct CustomerProduct)
         {
-            var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
-            collection.InsertOne(CustomerProduct);
+            try
+            {
+                var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
+                collection.InsertOne(CustomerProduct);
+                ProdcutAdded?.Invoke();
+                return true;
+            }
+            catch (Exception )
+            {
+                return false;
+            }
         }
 
         public List<CustomerProduct> LoadCustomerProducts()
         {
-            var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
-            return collection.Find(new BsonDocument()).ToList();
+            try
+            {
+                var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
+                return collection.Find(new BsonDocument()).ToList();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
         }
 
-        public void DeleteCustomerProduct(ObjectId id)
+        public bool DeleteCustomerProduct(ObjectId id)
         {
-            var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
-            var filter = Builders<CustomerProduct>.Filter.Eq("_id", id);
-            collection.DeleteOne(filter);
+            try
+            {
+                var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
+                var filter = Builders<CustomerProduct>.Filter.Eq("_id", id);
+                collection.DeleteOne(filter);
+                return true;
+            }
+            catch (Exception )
+            {
+                return false;
+            }
         }
 
         #endregion

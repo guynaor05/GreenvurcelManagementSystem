@@ -27,7 +27,7 @@
             <TextBlock Text="vurcel" Foreground="#FFAEACAC" FontSize="110" FontWeight="SemiBold" FontFamily="Century Gothic"/>
         </StackPanel>
         
-        <TabControl BorderThickness="0" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="18" Background="{x:Null}">
+        <TabControl x:Name="MainTabControl" BorderThickness="0" Margin="10" Grid.Row="1" Grid.Column="1" FontSize="18" Background="{x:Null}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabPanel}">
                     <Setter Property="HorizontalAlignment" Value="Center" />

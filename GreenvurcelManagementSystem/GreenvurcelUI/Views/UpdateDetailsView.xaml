@@ -24,15 +24,14 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="10 5" Grid.Row="1" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" Grid.ColumnSpan="3">
+        <StackPanel x:Name="IDPanel" Margin="10 5" Grid.Row="1" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" Grid.ColumnSpan="3">
             <TextBlock Text="Customer ID" Style="{StaticResource RegistrationPart}" Margin="10 0"/>
             <StackPanel Orientation="Horizontal" Margin="10 5">
                 <TextBox x:Name="CustomerID" Style="{StaticResource TextBox}" TextChanged="CustomerID_TextChanged"/>
-                <Button x:Name="SubmitID" Content="Submit" Margin="10 0 0 0" FontSize="14" Click="SubmitID_Click" IsEnabled="False"/>
-                <Button x:Name="CancelID" Content="Cancel" Margin="10 0 0 0" FontSize="14" Click="CancelID_Click" IsEnabled="True"/>
+                <Button x:Name="ViewDetails" Content="View Details" Margin="10 0 0 0" FontSize="14" Click="ViewDetails_Click" IsEnabled="False"/>
             </StackPanel>
         </StackPanel>
-        <Expander x:Name="Personal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Header="Personal" IsExpanded="True" FontSize="20" Visibility="Collapsed">
+        <Expander x:Name="Personal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Header="Personal" FontSize="20" Visibility="Collapsed" Expanded="Personal_Expanded">
             <Expander.Content>
                 <StackPanel Margin="10 5" Orientation="Horizontal">
                     <StackPanel Margin="10 5">
@@ -64,7 +63,7 @@
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <Expander x:Name="Address" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Header="Address" FontSize="20" Visibility="Collapsed">
+        <Expander x:Name="Address" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Header="Address" FontSize="20" Visibility="Collapsed" Expanded="Address_Expanded">
             <Expander.Content>
                 <StackPanel Margin="10 5" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
@@ -122,7 +121,7 @@
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <Expander x:Name="Contact" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Header="Contact" FontSize="20" Visibility="Collapsed">
+        <Expander x:Name="Contact" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Header="Contact" FontSize="20" Visibility="Collapsed" Expanded="Contact_Expanded">
             <Expander.Content>
                 <StackPanel Margin="10 5" Orientation="Horizontal" >
                     <StackPanel Orientation="Vertical" Margin="10 5">
@@ -203,6 +202,19 @@
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <Button x:Name="SubmitButton" Content="Submit" Width="100" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="SubmitButton_Click" IsEnabled="False" Visibility="Collapsed"/>
+        <Expander x:Name="Additionals" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Header="Additionals" FontSize="20" Visibility="Collapsed" Expanded="Additionals_Expanded">
+            <Expander.Content>
+                <StackPanel Margin="10 5" Orientation="Horizontal">
+                    <StackPanel Margin="10 5">
+                        <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" TextChanged="Notes_TextChanged" MinWidth="640" MinHeight="50" MaxHeight="50" AcceptsReturn="True"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <StackPanel x:Name="DetailsButtons" Orientation="Horizontal" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="UpadteDetailsButton" Content="Upadte Details" Width="150" Margin="0 20 10 0" Click="UpadteDetailsButton_Click" IsEnabled="False" FontSize="16"/>
+            <Button Content="Cancel" Width="150"  Margin="10 20 0 0" FontSize="16" Click="CancelButton_Click"/>
+        </StackPanel>
     </Grid>
 </UserControl>

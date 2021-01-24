@@ -20,159 +20,42 @@ namespace GreenvurcelUI
     public partial class ReportsView : UserControl
     {
         private List<Customer> customers;
+        public ICommand SwitchTabCommand { get; set; }
+
+        public static event Action<long> CustomerUpdateRequest;
 
         public ReportsView()
         {
             InitializeComponent();
 
             LoadCustomers();
+
+            CustomerContext.Instance.CustomerAdded += OnCustomerAdded;
+
+            CustomerContext.Instance.CustomerUpadted += Instance_CustomerUpadted;
         }
 
+        private void Instance_CustomerUpadted()
+        {
+            LoadCustomers();
+        }
+
+        private void OnCustomerAdded()
+        {
+            LoadCustomers();
+        }
 
         private void LoadCustomers()
         {
-            customers = new List<Customer>
+            customers = CustomerContext.Instance.LoadCustomers();
+            if (customers == null)
             {
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Guy",
-                    LastName = "naor",
-                    BirthDate = "12/12/2007",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "10",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                    
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Sean",
-                    LastName = "naor",
-                    BirthDate = "12/12/2008",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "3",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Ron",
-                    LastName = "naor",
-                    BirthDate = "12/11/2008",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "3",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Dana",
-                    LastName = "naor",
-                    BirthDate = "12/12/2006",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "1",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Uri",
-                    LastName = "naor",
-                    BirthDate = "12/12/2006",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "2",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Guy",
-                    LastName = "naor",
-                    BirthDate = "12/12/2006",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "10",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Guy",
-                    LastName = "naor",
-                    BirthDate = "12/12/2006",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "2",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-                new Customer
-                {
-                    PostalCode = "13412",
-                    CompanyName = "Compnay",
-                    FirstName = "Guy",
-                    LastName = "naor",
-                    BirthDate = "12/12/2006",
-                    HomeCountry = "hod",
-                    HomeCity = "hod",
-                    HomeStreet = "hod",
-                    WorkCountry = "hod",
-                    WorkCity = "hod",
-                    WorkStreet = "hod",
-                    Grade = "4",
-                    Phones = new List<Phone> { new Phone { PhoneType = "Mobile", PhoneNumber = "0"}, new Phone { PhoneType = "Home", PhoneNumber = "1" }, new Phone { PhoneType = "Mobile", PhoneNumber = "2" } },
-                    Emails = new List<Email> { new Email { EmailType = "Work", EmailAddress = "0"}, new Email { EmailType = "Personal", EmailAddress = "1" } }
-                },
-            };
-
-            Customers.ItemsSource = customers;
+                MessageBox.Show("Unable to connect to databse");
+            }
+            else
+            {
+                Customers.ItemsSource = customers; 
+            }
         }
         
         private void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -209,6 +92,34 @@ namespace GreenvurcelUI
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             LoadCustomers();
+        }
+        private void DataGridRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+        private void UpdateCustomer(object sender, RoutedEventArgs e)
+        {
+            Customer customerDetails = (Customer)Customers.SelectedItem;
+            CustomerUpdateRequest?.Invoke(customerDetails._id);
+        }
+
+        private void DeleteCustomer(object sender, RoutedEventArgs e)
+        {
+            Customer customerDetails = (Customer)Customers.SelectedItem;
+
+            if (MessageBox.Show($"Are you sure you want to delete customer - {customerDetails._id}?", "Delete Customer", MessageBoxButton.OKCancel) != MessageBoxResult.Cancel)
+            {
+                bool succeeded = CustomerContext.Instance.DeleteCustomer(customerDetails._id);
+                if (!succeeded)
+                {
+                    MessageBox.Show("Unable to connect to databse");
+                }
+                else
+                {
+                    LoadCustomers();
+                    MessageBox.Show("Customer deleted Successfully");
+                }
+            }
         }
     }
 }

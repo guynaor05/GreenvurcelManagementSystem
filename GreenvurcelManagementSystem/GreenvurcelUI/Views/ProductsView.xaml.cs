@@ -24,76 +24,61 @@ namespace GreenvurcelUI
         public ProductsView()
         {
             InitializeComponent();
+
             LoadCustomerProducts();
-        }   
+
+            CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded; ;
+
+            CustomerContext.Instance.CustomerRemoved += Instance_CustomerRemoved;
+        }
+
+        private void Instance_CustomerRemoved()
+        {
+            LoadCustomerProducts();
+        }
+
+        private void Instance_ProdcutAdded()
+        {
+            LoadCustomerProducts();
+        }
+
         private void LoadCustomerProducts()
         {
-            //products = new List<Sell>
-            //{
-            //    new Sell
-            //    {
-            //         = "Guy",
-            //        SellName = "Guns"
-
-            //    },
-            //    new Sell
-            //    {
-            //        Name = "Sean",
-            //        SellName = "Guns"
-            //    },
-            //    new Sell
-            //    {
-            //       Name = "Dana",
-            //        SellName = "Guns"
-            //    },
-            //    new Sell
-            //    {
-            //       Name = "Ron",
-            //        SellName = "Guns"
-            //    },
-            //    new Sell
-            //    {
-            //        Name = "Uri",
-            //        SellName = "Guns"
-            //    },
-            //    new Sell
-            //    {
-            //        Name = "Baba",
-            //        SellName = "Guns"
-            //    },
-            //    new Sell
-            //    {
-            //       Name = "Mama",
-            //        SellName = "Guns"
-            //    },
-            //    new Sell
-            //    {
-            //        Name = "Guy",
-            //        SellName = "Guns"
-            //    },
-            //};
-            
-            //Products.ItemsSource = products;
+            products = CustomerProductsContext.Instance.LoadCustomerProducts();
+            if (products == null)
+            {
+                MessageBox.Show("Unable to connect to databse");
+            }
+            else
+            {
+                Products.ItemsSource = products;
+            }
 
         }
 
         private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridRow dataGridRow = (DataGridRow)sender; CustomerProduct product = (CustomerProduct)dataGridRow.DataContext;
-            Name.Text = product.ProductName;
+            DataGridRow dataGridRow = (DataGridRow)sender;
+            CustomerProduct product = (CustomerProduct)dataGridRow.DataContext;
+            CustomerID.Text = product.CustomerID.ToString();
         }
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             string selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
 
-            if (selectedFilter == "Name")
+            if (selectedFilter == "CustomerID")
             {
-                List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName == FilterBox.Text);
+                List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CustomerID == long.Parse(FilterBox.Text));
                 Products.ItemsSource = filteredCustomers;
             }
             if (selectedFilter == "Product Name")
             {
                 List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName == FilterBox.Text);
+                Products.ItemsSource = filteredCustomers;
+            }
+            if (selectedFilter == "Category Name")
+            {
+                List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CategoryName == FilterBox.Text);
                 Products.ItemsSource = filteredCustomers;
             }
         }
@@ -107,11 +92,39 @@ namespace GreenvurcelUI
         {
             CustomerProduct CustomerProduct = new CustomerProduct
             {
-                CustomerID = long.Parse(Name.Text),
+                CustomerID = long.Parse(CustomerID.Text),
                 ProductName = ProductName.Text,
                 CategoryName = Category.Text
             };
             CustomerProductsContext.Instance.InsertCustomerProduct(CustomerProduct);
+            CustomerID.Text = "";
+            ProductName.Text = "";
+            Category.Text = "";
+            MessageBox.Show("Product added Successfully");
+        }
+
+        private void DataGridRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void DeleteCustomerProduct(object sender, RoutedEventArgs e)
+        {
+            CustomerProduct customerProduct = (CustomerProduct)Products.SelectedItem;
+            bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
+            if (!succeeded)
+            {
+                MessageBox.Show("Unable to connect to databse");
+            }
+            else
+            {
+                LoadCustomerProducts();
+                MessageBox.Show("Customer deleted Successfully");
+            }
         }
     }
 }
