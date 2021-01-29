@@ -93,10 +93,6 @@ namespace GreenvurcelUI
         {
             LoadCustomers();
         }
-        private void DataGridRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
         private void UpdateCustomer(object sender, RoutedEventArgs e)
         {
             Customer customerDetails = (Customer)Customers.SelectedItem;

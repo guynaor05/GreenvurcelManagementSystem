@@ -33,5 +33,6 @@ namespace GreenvurcelUI
             MainTabControl.SelectedIndex = 5;
             CustomerUpdateRequest?.Invoke(obj);
         }
+       
     }
 }

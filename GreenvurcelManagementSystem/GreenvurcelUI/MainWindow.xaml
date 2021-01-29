@@ -44,7 +44,7 @@
             <TabItem Header="Reports">
                 <local:ReportsView Margin="20 20"/>
             </TabItem>
-            <TabItem Header="Customer Producsts">
+            <TabItem Header="Customer Products">
                 <local:ProductsView Margin="20 20"/>
             </TabItem>
             <TabItem Header="Update Customer Details">

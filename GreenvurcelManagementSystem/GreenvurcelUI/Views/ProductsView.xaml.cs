@@ -103,27 +103,21 @@ namespace GreenvurcelUI
             MessageBox.Show("Product added Successfully");
         }
 
-        private void DataGridRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void DeleteCustomerProduct(object sender, RoutedEventArgs e)
         {
             CustomerProduct customerProduct = (CustomerProduct)Products.SelectedItem;
-            bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
-            if (!succeeded)
+            if (MessageBox.Show($"Are you sure you want to delete this Product?", "Delete Product", MessageBoxButton.OKCancel) != MessageBoxResult.Cancel)
             {
-                MessageBox.Show("Unable to connect to databse");
-            }
-            else
-            {
-                LoadCustomerProducts();
-                MessageBox.Show("Customer deleted Successfully");
+                bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
+                if (!succeeded)
+                {
+                    MessageBox.Show("Unable to connect to databse");
+                }
+                else
+                {
+                    LoadCustomerProducts();
+                    MessageBox.Show("Product deleted Successfully");
+                }
             }
         }
     }

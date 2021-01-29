@@ -66,6 +66,12 @@ namespace GreenvurcelDAL
             collection.InsertOne(customer);
             CustomerAdded?.Invoke();
         }
+        public void InsertCustomerWithId(Customer customer)
+        {
+            var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+            collection.InsertOne(customer);
+            CustomerAdded?.Invoke();
+        }
 
         public List<Customer> LoadCustomers()
         {

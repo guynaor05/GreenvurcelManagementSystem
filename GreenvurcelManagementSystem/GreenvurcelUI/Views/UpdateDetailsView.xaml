@@ -135,7 +135,7 @@
                             <TextBox x:Name="Phone" Style="{StaticResource TextBox}" TextChanged="Phone_TextChanged"/>
                             <Button x:Name="AddPhone" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="AddPhone_Click">
                                 <Grid>
-                                    <Path Stretch="Fill" Fill="LightGreen" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                    <Path Stretch="Fill" Fill="LightGreen" ToolTip="Add" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
                                 </Grid>
                             </Button>
                         </StackPanel>
@@ -152,7 +152,7 @@
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding PhoneNumber}"/>  
                                         </TextBlock>
-                                        <Button Grid.Column="1" x:Name="RemovePhone" Background="#FF383232" BorderBrush="#FF383232" Click="RemovePhone_Click">
+                                        <Button Grid.Column="1" x:Name="RemovePhone" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemovePhone_Click">
                                             <Grid>
                                                 <Path Stretch="Fill" Fill="Red" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
                                             </Grid>
@@ -170,7 +170,7 @@
                                 <ComboBoxItem Content="Work"/>
                             </ComboBox>
                             <TextBox x:Name="Email" Style="{StaticResource TextBox}" TextChanged="Email_TextChanged"/>
-                            <Button x:Name="AddEmail" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="AddEmail_Click">
+                            <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddEmail_Click">
                                 <Grid>
                                     <Path Stretch="Fill" Fill="LightGreen" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
                                 </Grid>
@@ -189,7 +189,7 @@
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding EmailAddress}"/>
                                         </TextBlock>
-                                        <Button Grid.Column="1" x:Name="RemoveEmail" Background="#FF383232" BorderBrush="#FF383232" Click="RemoveEmail_Click">
+                                        <Button Grid.Column="1" x:Name="RemoveEmail" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemoveEmail_Click">
                                             <Grid>
                                                 <Path Stretch="Fill" Fill="Red" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
                                             </Grid>
@@ -207,7 +207,7 @@
                 <StackPanel Margin="10 5" Orientation="Horizontal">
                     <StackPanel Margin="10 5">
                         <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" TextChanged="Notes_TextChanged" MinWidth="640" MinHeight="50" MaxHeight="50" AcceptsReturn="True"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" TextChanged="Notes_TextChanged" MinWidth="640" MinHeight="50" MaxHeight="50" AcceptsReturn="True" BorderBrush="Black"/>
                     </StackPanel>
                 </StackPanel>
             </Expander.Content>
