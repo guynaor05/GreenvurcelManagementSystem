@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -18,7 +18,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid Name="Products" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" IsReadOnly="True" MaxWidth="750" MaxHeight="300" Style="{StaticResource DataGridStyle}">
+        <DataGrid Name="Products" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" IsReadOnly="True" MaxWidth="900" MaxHeight="300" Style="{StaticResource DataGridStyle}">
             <DataGrid.Resources>
                 <ContextMenu x:Key="ContextMenuTemplate">
                     <MenuItem Header="Delete Product" Click="DeleteCustomerProduct">
@@ -42,60 +42,68 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Customer ID" Binding="{Binding CustomerID}"/>
-                <DataGridTextColumn Width="*" Header="Product Name" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Width="*" Header="Product" Binding="{Binding ProductName}"/>
                 <DataGridTextColumn Width="*" Header="Category Name" Binding="{Binding CategoryName}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
-            <StackPanel Margin="10 5">
+            <GroupBox Header="Add Product" Margin="5 20" Foreground="Black" BorderBrush="Black">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="ID" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+                    <StackPanel Margin="5 5">
+                        <TextBlock Text="Customer ID" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+                        <TextBox x:Name="CustomerID" Style="{StaticResource TextBox}" BorderBrush="Black" FontSize="16" TextChanged="CustomerID_TextChanged"/>
+                    </StackPanel>
+                    <StackPanel Margin="5 5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Product Name" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+                        </StackPanel>
+                        <TextBox x:Name="ProductName" Style="{StaticResource TextBox}" FontSize="16" BorderBrush="Black"/>
+                    </StackPanel>
+                    <StackPanel Margin="5 5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Category" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="Category" Style="{StaticResource TextBox}" BorderBrush="Black" FontSize="16"/>
+                            <Button x:Name="AddProduct" ToolTip="Add" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="AddProduct_Click">
+                                <Grid>
+                                    <Path Stretch="Fill" Fill="White" Height="18" Width="18" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
-                <TextBox x:Name="CustomerID" Style="{StaticResource TextBox}" BorderBrush="Black" FontSize="16"/>
-            </StackPanel>
-            <StackPanel Margin="10 5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Product Name" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+            </GroupBox>
+            <GroupBox Header="Search Product" Margin="5 20" Foreground="Black" BorderBrush="Black">
+                <StackPanel Margin="5 5" Orientation="Vertical">
+                    <TextBlock Text="Filter" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox x:Name="FilterComboBox" FontSize="16">
+                            <ComboBoxItem IsSelected="True" Content="CustomerID"/>
+                            <ComboBoxItem Content="Product"/>
+                            <ComboBoxItem Content="Category Name"/>
+                        </ComboBox>
+                        <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" BorderBrush="Gray" Margin="0 0 5 0" FontSize="16"/>
+                        <Button x:Name="FilterButton" Foreground="White" ToolTip="Search" Background="#FF383232" Margin="5 0" BorderBrush="#FF383232" Click="FilterButton_Click">
+                            <Viewbox Height="18" Width="18">
+                                <Grid>
+                                    <Path Fill="white" Data="M574.099,469.235L437.61,353.434c-3.248-2.709-7.227-4.171-11.266-4.171c-5.643,0-11.018,2.843-14.373,7.606    c-15.533,22.029-34.578,41.087-56.611,56.635c-4.1,2.895-6.816,7.319-7.449,12.143c-0.635,4.828,0.775,9.602,3.975,13.439    l115.873,136.61c7.852,9.422,19.252,14.859,31.23,14.859c10.768,0,21.021-4.324,28.877-12.179l48.98-48.981    c8.346-8.348,12.656-19.241,12.137-30.68C588.46,487.269,583.175,476.8,574.099,469.235z"/>
+                                    <Path Fill="white" Data="M218.399,433.743c57.923,0,112.385-22.559,153.348-63.522c40.965-40.965,63.523-95.423,63.523-153.349    C435.271,97.29,337.983,0,218.399,0C98.814,0,1.53,97.29,1.53,216.872S98.817,433.743,218.399,433.743z M71.81,216.872    c0-80.83,65.759-146.589,146.589-146.589c80.831,0,146.588,65.759,146.588,146.589c0,39.091-15.262,75.885-42.982,103.602    c-27.721,27.718-64.515,42.984-103.606,42.984C137.569,363.461,71.81,297.701,71.81,216.872z"/>
+                                </Grid>
+                            </Viewbox>
+                        </Button>
+                        <Button x:Name="ResetButton" Foreground="White" ToolTip="Reset" Background="#FF383232" Margin="5 0" BorderBrush="#FF383232" Click="ResetButton_Click">
+                            <Viewbox  Height="18" Width="18">
+                                <Grid>
+                                    <Path Fill="white" Data="M408.973,142.689C368.113,101.829,313.785,79.326,256,79.326h-31.717l50.907-51.032L246.826,0L147.68,99.389    l97.852,99.488l28.563-28.093l-50.551-51.396H256c97.198,0,176.275,79.076,176.275,176.275S353.198,471.938,256,471.938    S79.725,392.861,79.725,295.659v-20.031l-40.062,0.004v20.031c0,57.786,22.503,112.113,63.364,152.973    C143.887,489.497,198.215,512,256,512c57.785,0,112.113-22.503,152.973-63.364c40.861-40.861,63.364-95.188,63.364-152.973    S449.834,183.55,408.973,142.689z"/>
+                                </Grid>
+                            </Viewbox>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
-                <TextBox x:Name="ProductName" Style="{StaticResource TextBox}" FontSize="16" BorderBrush="Black"/>
-            </StackPanel>
-            <StackPanel Margin="10 5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Category" Style="{StaticResource RegistrationPart}" FontSize="16"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="Category" Style="{StaticResource TextBox}" BorderBrush="Black"/>
-                    <Button x:Name="AddProduct" ToolTip="Add" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="AddProduct_Click">
-                        <Grid>
-                            <Path Stretch="Fill" Fill="LightGreen" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
-                        </Grid>
-                    </Button>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="10 5" HorizontalAlignment="Center">
-            <TextBlock Text="Filter" Style="{StaticResource RegistrationPart}" FontSize="18"/>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                <ComboBox x:Name="FilterComboBox">
-                    <ComboBoxItem IsSelected="True" Content="CustomerID"/>
-                    <ComboBoxItem Content="Product Name"/>
-                    <ComboBoxItem Content="Category Name"/>
-                </ComboBox>
-                <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" BorderBrush="Gray"/>
-                <Button x:Name="FilterButton" Width="20" ToolTip="Search" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="FilterButton_Click">
-                    <Viewbox>
-                        <Grid>
-                            <Path Fill="white" Data="M574.099,469.235L437.61,353.434c-3.248-2.709-7.227-4.171-11.266-4.171c-5.643,0-11.018,2.843-14.373,7.606    c-15.533,22.029-34.578,41.087-56.611,56.635c-4.1,2.895-6.816,7.319-7.449,12.143c-0.635,4.828,0.775,9.602,3.975,13.439    l115.873,136.61c7.852,9.422,19.252,14.859,31.23,14.859c10.768,0,21.021-4.324,28.877-12.179l48.98-48.981    c8.346-8.348,12.656-19.241,12.137-30.68C588.46,487.269,583.175,476.8,574.099,469.235z"/>
-                            <Path Fill="white" Data="M218.399,433.743c57.923,0,112.385-22.559,153.348-63.522c40.965-40.965,63.523-95.423,63.523-153.349    C435.271,97.29,337.983,0,218.399,0C98.814,0,1.53,97.29,1.53,216.872S98.817,433.743,218.399,433.743z M71.81,216.872    c0-80.83,65.759-146.589,146.589-146.589c80.831,0,146.588,65.759,146.588,146.589c0,39.091-15.262,75.885-42.982,103.602    c-27.721,27.718-64.515,42.984-103.606,42.984C137.569,363.461,71.81,297.701,71.81,216.872z"/>
-                        </Grid>
-                    </Viewbox>
-                </Button>
-                <Button x:Name="ResetButton" ToolTip="Reset" Foreground="White" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="ResetButton_Click">
-                    <Grid>
-                        <Path Stretch="Fill" Fill="white" Height="20" Width="20" Data="M408.973,142.689C368.113,101.829,313.785,79.326,256,79.326h-31.717l50.907-51.032L246.826,0L147.68,99.389    l97.852,99.488l28.563-28.093l-50.551-51.396H256c97.198,0,176.275,79.076,176.275,176.275S353.198,471.938,256,471.938    S79.725,392.861,79.725,295.659v-20.031l-40.062,0.004v20.031c0,57.786,22.503,112.113,63.364,152.973    C143.887,489.497,198.215,512,256,512c57.785,0,112.113-22.503,152.973-63.364c40.861-40.861,63.364-95.188,63.364-152.973    S449.834,183.55,408.973,142.689z"/>
-                    </Grid>
-                </Button>
-            </StackPanel>
+            </GroupBox>
         </StackPanel>
     </Grid>
 </UserControl>

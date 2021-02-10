@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Diagnostics;
 
 namespace GreenvurcelUI
 {
@@ -23,6 +25,8 @@ namespace GreenvurcelUI
         public ICommand SwitchTabCommand { get; set; }
 
         public static event Action<long> CustomerUpdateRequest;
+        public static event Action<long> ShowProdutsRequest;
+        public static event Action<long> AddProductRequest;
 
         public ReportsView()
         {
@@ -33,6 +37,7 @@ namespace GreenvurcelUI
             CustomerContext.Instance.CustomerAdded += OnCustomerAdded;
 
             CustomerContext.Instance.CustomerUpadted += Instance_CustomerUpadted;
+            //i need to find a way to do it when he opens the reports
         }
 
         private void Instance_CustomerUpadted()
@@ -61,7 +66,6 @@ namespace GreenvurcelUI
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             string selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
-
             if (selectedFilter == "First Name")
             {
                 List<Customer> filteredCustomers = customers.FindAll(customer => customer.FirstName == FilterBox.Text);
@@ -77,9 +81,9 @@ namespace GreenvurcelUI
                 List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCountry == FilterBox.Text);
                 Customers.ItemsSource = filteredCustomers;
             }
-            else if (selectedFilter == "Home City")
+            else if (selectedFilter == "Home State")
             {
-                List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCity == FilterBox.Text);
+                List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState == FilterBox.Text);
                 Customers.ItemsSource = filteredCustomers;
             }
             else if (selectedFilter == "Grade")
@@ -91,6 +95,7 @@ namespace GreenvurcelUI
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
+            //Console.WriteLine(Customers.SelectedItems);
             LoadCustomers();
         }
         private void UpdateCustomer(object sender, RoutedEventArgs e)
@@ -114,8 +119,42 @@ namespace GreenvurcelUI
                 {
                     LoadCustomers();
                     MessageBox.Show("Customer deleted Successfully");
-                }
+                } 
             }
+        }
+
+        private void AddProduct(object sender, RoutedEventArgs e)
+        {
+            Customer customerDetails = (Customer)Customers.SelectedItem;
+            AddProductRequest?.Invoke(customerDetails._id);
+        }
+
+        private void ShowProduct(object sender, RoutedEventArgs e)
+        {
+            Customer customerDetails = (Customer)Customers.SelectedItem;
+            ShowProdutsRequest?.Invoke(customerDetails._id);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Customers.SelectAllCells();
+            //Customers.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+            //try
+            //{
+            //    ApplicationCommands.Copy.Execute(null, Customers);
+            //    Customers.UnselectAllCells();
+            //    String Clipboardresult = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+            //    StreamWriter swObj = new StreamWriter("exportToExcelTest.csv");
+            //    swObj.WriteLine(Clipboardresult);
+            //    swObj.Close();
+            //    Process.Start(@"cmd.exe ",@"/c C:\Users\user2\Desktop\XXXX.reg");
+
+            //    MessageBox.Show(" Exporting DataGrid data to Excel file created.xls");
+            //}
+            //catch
+            //{
+            //}
+            
         }
     }
 }

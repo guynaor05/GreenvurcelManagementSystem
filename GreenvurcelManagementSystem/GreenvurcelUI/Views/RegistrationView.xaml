@@ -5,183 +5,204 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenvurcelUI"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d"
+             mc:Ignorable="d" Height="400"
              d:DesignHeight="450" d:DesignWidth="800" FontWeight="UltraLight" FontFamily="Century Gothic">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <TabControl x:Name="RegistrationTabControl" BorderThickness="0" Margin="10" Grid.Row="0" Grid.Column="0" FontSize="20" BorderBrush="LightGray" TabStripPlacement="Left" VerticalAlignment="Center">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabPanel}">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="TabItem" BasedOn="{StaticResource TabItem2}"/>
+            </TabControl.Resources>
+            <TabItem Header="Personal">
+                <Grid HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="First Name" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="FirstName" Style="{StaticResource TextBox}" TextChanged="FirstName_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
 
-        <Expander x:Name="Personal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Header="Personal" FontSize="20" Expanded="Personal_Expanded">
-            <Expander.Content>
-                <StackPanel Margin="10 5" Orientation="Horizontal">
-                    <StackPanel Margin="10 5">
-                        <TextBlock Text="First Name" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="FirstName" Style="{StaticResource TextBox}" TextChanged="FirstName_TextChanged"/>
-                    </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Last Name" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="LastName" Style="{StaticResource TextBox}" TextChanged="LastName_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
 
-                    <StackPanel Margin="10 5">
-                        <TextBlock Text="Last Name" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="LastName" Style="{StaticResource TextBox}" TextChanged="LastName_TextChanged"/>
-                    </StackPanel>
-
-                    <StackPanel Margin="10 5">
-                        <TextBlock Text="Birth Date" Style="{StaticResource RegistrationPart}"/>
-                        <DatePicker x:Name="BirthDate" Margin="-2 -3 0 0" DisplayDateEnd="{x:Static sys:DateTime.Now}" Style="{StaticResource DatePicker}" SelectedDateChanged="BirthDate_SelectedDateChanged"/>
-                    </StackPanel>
-                    <StackPanel Margin="10 5">
-                        <TextBlock Text="Grade" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Grade" Style="{StaticResource TextBox}" TextChanged="Grade_TextChanged"/>
-                    </StackPanel>
-                </StackPanel>
-            </Expander.Content>
-        </Expander>
-        <Expander x:Name="Address" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Header="Address" FontSize="20" Expanded="Address_Expanded">
-            <Expander.Content>
-                <StackPanel Margin="10 5" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Home Country" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}" TextChanged="HomeCountry_TextChanged"/>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Birth Date" Style="{StaticResource RegistrationPart}"/>
+                                <DatePicker x:Name="BirthDate" DisplayDateEnd="{x:Static sys:DateTime.Now}" Style="{StaticResource DatePicker}" SelectedDateChanged="BirthDate_SelectedDateChanged"/>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel  Margin="10 5">
-                            <TextBlock Text="Home City" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" TextChanged="HomeCity_TextChanged"/>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Home Country" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}" TextChanged="HomeCountry_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Home State" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="HomeState" Style="{StaticResource TextBox}" TextChanged="HomeState_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
+                            <StackPanel  Margin="10 5">
+                                <TextBlock Text="Home City" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" TextChanged="HomeCity_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Home Street" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" TextChanged="HomeStreet_TextChanged"/>
-                        </StackPanel>
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Postal Code" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="PostalCode" Style="{StaticResource TextBox}" TextChanged="PostalCode_TextChanged"/>
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 5 0 5">
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Home Street" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" TextChanged="HomeStreet_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Home Postal Code" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="HomePostalCode" Style="{StaticResource TextBox}" TextChanged="HomePostalCode_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Work Country" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}" TextChanged="WorkCountry_TextChanged"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Work">
+                <Grid HorizontalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Company Name" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}" TextChanged="CompanyName_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Job" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="Job" Style="{StaticResource TextBox}"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Work Country" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}" TextChanged="WorkCountry_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Work City" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" TextChanged="WorkCity_TextChanged"/>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Work State" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="WorkState" Style="{StaticResource TextBox}" TextChanged="WorkState_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Work City" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" TextChanged="WorkCity_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Work Street" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" TextChanged="WorkStreet_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Work Street" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" TextChanged="WorkStreet_TextChanged"/>
-                        </StackPanel>
-                        <StackPanel Margin="10 5">
-                            <TextBlock Text="Company Name" Style="{StaticResource RegistrationPart}"/>
-                            <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}" TextChanged="CompanyName_TextChanged"/>
+                        <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                            <StackPanel Margin="10 5">
+                                <TextBlock Text="Work Postal Code" Style="{StaticResource RegistrationPart}"/>
+                                <TextBox x:Name="WorkPostalCode" Style="{StaticResource TextBox}" TextChanged="WorkPostalCode_TextChanged" Margin="0 0 0 4"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Expander.Content>
-        </Expander>
-        <Expander x:Name="Contact" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Header="Contact" FontSize="20" Expanded="Contact_Expanded">
-            <Expander.Content>
-                <StackPanel Margin="10 5" Orientation="Horizontal" >
-                    <StackPanel Orientation="Vertical" Margin="10 5">
-                        <TextBlock Text="Phone" Style="{StaticResource RegistrationPart}"/>
-                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                            <ComboBox x:Name="PhoneType">
-                                <ComboBoxItem IsSelected="True" Content="Mobile"/>
-                                <ComboBoxItem Content="Home"/>
-                                <ComboBoxItem Content="Work"/>
-                            </ComboBox>
-                            <TextBox x:Name="Phone" Style="{StaticResource TextBox}" TextChanged="Phone_TextChanged"/>
-                            <Button x:Name="AddPhone" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddPhone_Click">
-                                <Grid>
-                                    <Path Stretch="Fill" Fill="LightGreen" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
-                                </Grid>
-                            </Button>
-                        </StackPanel>
-                        <ListView x:Name="Phones" Background="#FF383232" Foreground="White" Margin="0 10 0 0" HorizontalContentAlignment="Stretch">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Contact">
+                <Grid HorizontalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Phone" Style="{StaticResource RegistrationPart}" FontSize="14"/>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                                <ComboBox x:Name="PhoneType" MinWidth="80" FontSize="14">
+                                    <ComboBoxItem IsSelected="True" Content="Mobile"/>
+                                    <ComboBoxItem Content="Home"/>
+                                    <ComboBoxItem Content="Work"/>
+                                    <ComboBoxItem Content="Fax"/>
+                                </ComboBox>
+                                <TextBox x:Name="Phone" Style="{StaticResource TextBox}" FontSize="14" TextChanged="Phone_TextChanged"  MinWidth="125"/>
+                                <Button x:Name="AddPhone" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddPhone_Click">
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0">
+                                        <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+                            <ListView x:Name="Phones" Background="#FF383232" Foreground="White" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0">
                                             <TextBlock Text="{Binding PhoneType}"/>
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding PhoneNumber}"/>  
                                         </TextBlock>
-                                        <Button Grid.Column="1" x:Name="RemovePhone" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemovePhone_Click">
-                                            <Grid>
-                                                <Path Stretch="Fill" Fill="Red" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="10 5">
-                        <TextBlock Text="Email" Style="{StaticResource RegistrationPart}"/>
-                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                            <ComboBox x:Name="EmailType">
-                                <ComboBoxItem IsSelected="True" Content="Personal"/>
-                                <ComboBoxItem Content="Work"/>
-                            </ComboBox>
-                            <TextBox x:Name="Email" Style="{StaticResource TextBox}" TextChanged="Email_TextChanged"/>
-                            <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddEmail_Click">
-                                <Grid>
-                                    <Path Stretch="Fill" Fill="LightGreen" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
-                                </Grid>
-                            </Button>
+                                            <Button Grid.Column="1" x:Name="RemovePhone" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemovePhone_Click">
+                                                <Grid>
+                                                    <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                         </StackPanel>
-                        <ListView x:Name="Emails" Background="#FF383232" Foreground="White" Margin="0 10 0 0" HorizontalContentAlignment="Stretch">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
+                        <StackPanel Orientation="Vertical" Margin="10 0">
+                            <TextBlock Text="Email" Style="{StaticResource RegistrationPart}" FontSize="14"/>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                                <ComboBox x:Name="EmailType" MinWidth="90" FontSize="14">
+                                    <ComboBoxItem IsSelected="True" Content="Personal"/>
+                                    <ComboBoxItem Content="Work"/>
+                                </ComboBox>
+                                <TextBox x:Name="Email" Style="{StaticResource TextBox}" FontSize="14" TextChanged="Email_TextChanged" MinWidth="125"/>
+                                <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddEmail_Click">
                                     <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0">
+                                        <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+                            <ListView x:Name="Emails" Background="#FF383232" Foreground="White" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0">
                                             <TextBlock Text="{Binding EmailType}"/>
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding EmailAddress}"/>
                                         </TextBlock>
-                                        <Button Grid.Column="1" x:Name="RemoveEmail" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemoveEmail_Click">
-                                            <Grid>
-                                                <Path Stretch="Fill" Fill="Red" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                            <Button Grid.Column="1" x:Name="RemoveEmail" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemoveEmail_Click">
+                                                <Grid>
+                                                    <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Expander.Content>
-        </Expander>
-        <Expander x:Name="Additionals" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Header="Additionals" FontSize="20" Expanded="Additionals_Expanded">
-            <Expander.Content>
-                <StackPanel Margin="10 5" Orientation="Horizontal">
-                    <StackPanel Margin="10 5">
+                </Grid>
+            </TabItem>
+            <TabItem Header="Additionals" HorizontalAlignment="Left">
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0 5" >
+                    <StackPanel Margin="65 10" HorizontalAlignment="Left">
+                        <TextBlock Text="Grade" Style="{StaticResource RegistrationPart}"/>
+                        <TextBox x:Name="Grade" Style="{StaticResource TextBox}" TextChanged="Grade_TextChanged"/>
+                    </StackPanel>
+                    <StackPanel Margin="65 10" HorizontalAlignment="Left">
                         <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="640" MinHeight="50" MaxHeight="50" AcceptsReturn="True" TextChanged="Notes_TextChanged" BorderBrush="Black"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="300" MinHeight="120" MaxHeight="70" AcceptsReturn="True" TextChanged="Notes_TextChanged" BorderBrush="Black"/>
                     </StackPanel>
                 </StackPanel>
-            </Expander.Content>
-        </Expander>
-        <Button x:Name="SubmitButton" Content="Submit" Width="100" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="SubmitButton_Click" IsEnabled="False"/>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="SubmitButton" Content="Submit" Width="100" Grid.Column="0" Grid.Row="1" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="SubmitButton_Click" Style="{StaticResource ButtonStyle}"/>
     </Grid>
 </UserControl>

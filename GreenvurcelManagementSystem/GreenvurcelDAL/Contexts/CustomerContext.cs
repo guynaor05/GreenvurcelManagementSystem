@@ -29,7 +29,6 @@ namespace GreenvurcelDAL
         public event Action CustomerAdded;
         public event Action CustomerRemoved;
         public event Action CustomerUpadted;
-
         #endregion
 
         #region Singleton Implementation
@@ -62,7 +61,6 @@ namespace GreenvurcelDAL
             var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
             long id = GetNextCounterValue();
             customer._id = id;
-
             collection.InsertOne(customer);
             CustomerAdded?.Invoke();
         }
@@ -107,7 +105,22 @@ namespace GreenvurcelDAL
                 return null;
             }
         }
+        public Customer LoadCustomerByIdForProduct(long id, out bool succeeded)
+        {
+            succeeded = true;
 
+            try
+            {
+                var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+                var filter = Builders<Customer>.Filter.Eq("_id", id);
+                return collection.Find(filter).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                succeeded = false;
+                return null;
+            }
+        }
         public bool UpdateCustomer(string id, Customer newCustomer)
         {
             try
@@ -142,6 +155,26 @@ namespace GreenvurcelDAL
                 return false;
             }
         }
+        public bool CheckIfIdExist(long id)
+        {
+            var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
+            var filter = Builders<Customer>.Filter.Eq(customer => customer._id, id);
+            Customer customer = collection.Find(filter).FirstOrDefault();
+            if (customer != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public long StarterCounterValue(long id)
+        {
+            var collection = _database.GetCollection<Counter>(COLLECTION_NAME_COUNTER);
+            var filter = Builders<Counter>.Filter.Eq(col => col.Id, "Counter");
+
+            // did not find counter document, we need to create new one
+            collection.InsertOne(new Counter { Id = "Counter", Value = id});
+            return id;
+        }
         #endregion
 
         #region Private Methods
@@ -160,7 +193,6 @@ namespace GreenvurcelDAL
 
             var update = Builders<Counter>.Update.Inc(col => col.Value, 1);
             collection.FindOneAndUpdate(filter, update);
-
             return collection.Find(filter).FirstOrDefault().Value;
         }
 

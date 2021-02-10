@@ -25,12 +25,25 @@ namespace GreenvurcelUI
         public MainWindow()
         {
             InitializeComponent();
+            //window.Icon = new BitmapImage(new Uri(@"Images\Background.png"));
             ReportsView.CustomerUpdateRequest += ReportsView_CustomerUpdateRequest;
+            ReportsView.AddProductRequest += ReportsView_AddProductRequest;
+            ReportsView.ShowProdutsRequest += ReportsView_ShowProdutsRequest;
+        }
+
+        private void ReportsView_ShowProdutsRequest(long obj)
+        {
+            MainTabControl.SelectedItem = Products;
+        }
+
+        private void ReportsView_AddProductRequest(long obj)
+        {
+            MainTabControl.SelectedItem = Products;
         }
 
         private void ReportsView_CustomerUpdateRequest(long obj)
         {
-            MainTabControl.SelectedIndex = 5;
+            MainTabControl.SelectedItem = UpdateCustomerDetails;
             CustomerUpdateRequest?.Invoke(obj);
         }
        

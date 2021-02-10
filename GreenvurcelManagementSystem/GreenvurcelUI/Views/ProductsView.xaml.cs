@@ -30,6 +30,26 @@ namespace GreenvurcelUI
             CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded; ;
 
             CustomerContext.Instance.CustomerRemoved += Instance_CustomerRemoved;
+
+            ReportsView.ShowProdutsRequest += ReportsView_ShowProdutsRequest;
+
+            ReportsView.AddProductRequest += ReportsView_AddProductRequest;
+        }
+
+        private void ReportsView_AddProductRequest(long obj)
+        {
+            CustomerID.Text = obj.ToString();
+
+        }
+
+        private void ReportsView_ShowProdutsRequest(long obj)
+        {
+            FilterComboBox.SelectedItem = "CustomerID";
+            FilterBox.Text = obj.ToString();
+            List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CustomerID == long.Parse(FilterBox.Text));
+            Products.ItemsSource = filteredCustomers;
+
+
         }
 
         private void Instance_CustomerRemoved()
@@ -51,6 +71,12 @@ namespace GreenvurcelUI
             }
             else
             {
+                foreach(CustomerProduct product in products)
+                {
+                    Customer CustomerDeitals = CustomerContext.Instance.LoadCustomerByIdForProduct(product.CustomerID, out bool succeeded);
+                    product.FirstName = CustomerDeitals.FirstName;
+                    product.LastName = CustomerDeitals.LastName;
+                }
                 Products.ItemsSource = products;
             }
 
@@ -68,18 +94,60 @@ namespace GreenvurcelUI
 
             if (selectedFilter == "CustomerID")
             {
-                List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CustomerID == long.Parse(FilterBox.Text));
-                Products.ItemsSource = filteredCustomers;
+                if (FilterBox.Text != "")
+                {
+                    if (ValidateNumber(FilterBox.Text))
+                    {
+                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CustomerID == long.Parse(FilterBox.Text));
+                        Products.ItemsSource = filteredCustomers;
+                    }
+                    else
+                    {
+                        Products.ItemsSource = null;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
             }
-            if (selectedFilter == "Product Name")
+            if (selectedFilter == "Product")
             {
-                List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName == FilterBox.Text);
-                Products.ItemsSource = filteredCustomers;
+                if (FilterBox.Text != "")
+                {
+                    if (ValidateLetter(FilterBox.Text))
+                    {
+                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredCustomers;
+                    }
+                    else
+                    {
+                        Products.ItemsSource = null;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
             }
             if (selectedFilter == "Category Name")
             {
-                List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CategoryName == FilterBox.Text);
-                Products.ItemsSource = filteredCustomers;
+                if(FilterBox.Text != "")
+                {
+                    if (ValidateLetter(FilterBox.Text))
+                    {
+                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CategoryName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredCustomers;
+                    }
+                    else
+                    {
+                        Products.ItemsSource = null;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
             }
         }
 
@@ -90,17 +158,31 @@ namespace GreenvurcelUI
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            CustomerProduct CustomerProduct = new CustomerProduct
+            if(CustomerID.Text != "")
             {
-                CustomerID = long.Parse(CustomerID.Text),
-                ProductName = ProductName.Text,
-                CategoryName = Category.Text
-            };
-            CustomerProductsContext.Instance.InsertCustomerProduct(CustomerProduct);
-            CustomerID.Text = "";
-            ProductName.Text = "";
-            Category.Text = "";
-            MessageBox.Show("Product added Successfully");
+                if (CustomerContext.Instance.CheckIfIdExist(long.Parse(CustomerID.Text)))
+                {
+                    CustomerProduct CustomerProduct = new CustomerProduct
+                    {
+                        CustomerID = long.Parse(CustomerID.Text),
+                        ProductName = ProductName.Text,
+                        CategoryName = Category.Text
+                    };
+                    CustomerProductsContext.Instance.InsertCustomerProduct(CustomerProduct);
+                    CustomerID.Text = "";
+                    ProductName.Text = "";
+                    Category.Text = "";
+                    MessageBox.Show("Product added Successfully");
+                }
+                else
+                {
+                    MessageBox.Show("Customer Id does not exist");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Customer Id was not given");
+            }
         }
 
         private void DeleteCustomerProduct(object sender, RoutedEventArgs e)
@@ -119,6 +201,51 @@ namespace GreenvurcelUI
                     MessageBox.Show("Product deleted Successfully");
                 }
             }
+        }
+
+        private void CustomerID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = CustomerID.Text;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                AddProduct.IsEnabled = false;
+            }
+
+            foreach (char c in text)
+            {
+                if (char.IsDigit(c))
+                {
+                    AddProduct.IsEnabled = true;
+                }
+                else
+                {
+                    AddProduct.IsEnabled = false;
+                }
+            }
+        }
+        private bool ValidateLetter(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private bool ValidateNumber(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

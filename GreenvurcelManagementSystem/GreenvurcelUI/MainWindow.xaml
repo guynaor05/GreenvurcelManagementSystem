@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GreenvurcelUI"
         mc:Ignorable="d" 
-        Title="Greenvurcel" Height="1000" Width="1200" FontWeight="UltraLight" FontFamily="Century Gothic">
+        Title="Greenvurcel" x:Name="window" Height="1000" Width="1200" FontWeight="UltraLight" FontFamily="Century Gothic">
     <Window.Background>
         <ImageBrush ImageSource="Images\Background.png" Stretch="UniformToFill"/>
     </Window.Background>
@@ -35,8 +35,7 @@
             </TabControl.Resources>
 
             <TabItem Header="HomePage">
-            </TabItem>
-            <TabItem Header="Mail">
+                <local:HomePageView Margin="20"/>
             </TabItem>
             <TabItem Header="Registeration">
                 <local:RegistrationView Margin="20 20"/>
@@ -44,10 +43,10 @@
             <TabItem Header="Reports">
                 <local:ReportsView Margin="20 20"/>
             </TabItem>
-            <TabItem Header="Customer Products">
+            <TabItem x:Name="Products" Header="Products">
                 <local:ProductsView Margin="20 20"/>
             </TabItem>
-            <TabItem Header="Update Customer Details">
+            <TabItem x:Name="UpdateCustomerDetails" Header="Update Customer Details">
                 <local:UpdateDetailsView Margin="20 20"/>
             </TabItem>
         </TabControl>

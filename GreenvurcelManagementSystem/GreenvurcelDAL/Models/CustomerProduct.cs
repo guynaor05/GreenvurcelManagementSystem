@@ -10,6 +10,8 @@ namespace GreenvurcelDAL
         public ObjectId _id;
         public long CustomerID { get; set; }
         public string ProductName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string CategoryName { get; set; }
     }
 }
