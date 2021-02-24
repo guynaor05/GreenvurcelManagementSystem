@@ -10,7 +10,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ClosedXML.Excel;
 using GreenvurcelDAL;
+using System.IO;
+using Microsoft.Win32;
+using System.Linq;
+using WPFCustomMessageBox;
 
 namespace GreenvurcelUI
 {
@@ -67,11 +72,11 @@ namespace GreenvurcelUI
             products = CustomerProductsContext.Instance.LoadCustomerProducts();
             if (products == null)
             {
-                MessageBox.Show("Unable to connect to databse");
+                CustomMessageBox.Show("Unable to connect to databse");
             }
             else
             {
-                foreach(CustomerProduct product in products)
+                foreach (CustomerProduct product in products)
                 {
                     Customer CustomerDeitals = CustomerContext.Instance.LoadCustomerByIdForProduct(product.CustomerID, out bool succeeded);
                     product.FirstName = CustomerDeitals.FirstName;
@@ -132,7 +137,7 @@ namespace GreenvurcelUI
             }
             if (selectedFilter == "Category Name")
             {
-                if(FilterBox.Text != "")
+                if (FilterBox.Text != "")
                 {
                     if (ValidateLetter(FilterBox.Text))
                     {
@@ -158,7 +163,7 @@ namespace GreenvurcelUI
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            if(CustomerID.Text != "")
+            if (CustomerID.Text != "")
             {
                 if (CustomerContext.Instance.CheckIfIdExist(long.Parse(CustomerID.Text)))
                 {
@@ -172,33 +177,33 @@ namespace GreenvurcelUI
                     CustomerID.Text = "";
                     ProductName.Text = "";
                     Category.Text = "";
-                    MessageBox.Show("Product added Successfully");
+                    CustomMessageBox.Show("Product added Successfully");
                 }
                 else
                 {
-                    MessageBox.Show("Customer Id does not exist");
+                    CustomMessageBox.Show("Customer Id does not exist");
                 }
             }
             else
             {
-                MessageBox.Show("Customer Id was not given");
+                CustomMessageBox.Show("Customer Id was not given");
             }
         }
 
         private void DeleteCustomerProduct(object sender, RoutedEventArgs e)
         {
             CustomerProduct customerProduct = (CustomerProduct)Products.SelectedItem;
-            if (MessageBox.Show($"Are you sure you want to delete this Product?", "Delete Product", MessageBoxButton.OKCancel) != MessageBoxResult.Cancel)
+            if (CustomMessageBox.Show($"Are you sure you want to delete this Product?", "Delete Product", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
                 bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
                 if (!succeeded)
                 {
-                    MessageBox.Show("Unable to connect to databse");
+                    CustomMessageBox.Show("Unable to connect to databse");
                 }
                 else
                 {
                     LoadCustomerProducts();
-                    MessageBox.Show("Product deleted Successfully");
+                    CustomMessageBox.Show("Product deleted Successfully");
                 }
             }
         }
@@ -246,6 +251,58 @@ namespace GreenvurcelUI
             }
 
             return true;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ListToExcel(Products.ItemsSource.Cast<CustomerProduct>().ToList());
+        }
+
+        private void ListToExcel(List<CustomerProduct> list)
+        {
+            var workbook = new XLWorkbook();
+            workbook.AddWorksheet("Products");
+            MakeSheet(workbook, list);
+            SaveFileDialog(workbook);
+        }
+        private void MakeSheet(IXLWorkbook workbook, List<CustomerProduct> list)
+        {
+            var sheet = workbook.Worksheet("Products");
+            sheet.Cell("A1").Value = "Customer ID";
+            sheet.Cell("B1").Value = "First Name";
+            sheet.Cell("C1").Value = "Last Name";
+            sheet.Cell("D1").Value = "Product Name";
+            sheet.Cell("E1").Value = "Category Name";
+            int counter = 2;
+            foreach (CustomerProduct item in list)
+            {
+                sheet.Cell("A" + counter.ToString()).Value = item.CustomerID;
+                sheet.Cell("B" + counter.ToString()).Value = item.FirstName;
+                sheet.Cell("C" + counter.ToString()).Value = item.LastName;
+                sheet.Cell("D" + counter.ToString()).Value = item.ProductName;
+                sheet.Cell("E" + counter.ToString()).Value = item.CategoryName;
+                counter++;
+            }
+        }
+        private void SaveFileDialog(IXLWorkbook workbook)
+        {
+            SaveFileDialog dlg = new SaveFileDialog
+            {
+                FileName = "Products", // Default file name
+                DefaultExt = ".xlsx", // Default file extension
+                Filter = "Execl files (*.xlsx)|*.xlsx" // Filter files by extension
+            };
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+
+                workbook.SaveAs(System.IO.Path.GetFullPath(dlg.FileName.ToString()));
+            }
         }
     }
 }

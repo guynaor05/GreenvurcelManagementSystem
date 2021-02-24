@@ -83,7 +83,14 @@ namespace Tests
                                 PhoneNumber = firstSheet.Cells["I" + i].Text
                             });
                         };
-
+                        if (firstSheet.Cells["L" + i].Text != "")
+                        {
+                            phones.Add(new Phone
+                            {
+                                PhoneType = "Fax",
+                                PhoneNumber = firstSheet.Cells["L" + i].Text
+                            });
+                        };
                         Customer customer = new Customer
                         {
                             _id = long.Parse(firstSheet.Cells["A" + i].Text),
@@ -116,6 +123,10 @@ namespace Tests
                         if (firstSheet.Cells["B" + i].Text != "")
                         {
                             Email email = new Email { EmailType = "Personal", EmailAddress = firstSheet.Cells["B" + i].Text };
+                            if(firstSheet.Cells["D" + i].Text == "true")
+                            {
+                                customer.DefaultEmail = firstSheet.Cells["B" + i].Text;
+                            }
                             customer.Emails.Add(email);
                         }
                     }
@@ -169,27 +180,27 @@ namespace Tests
 
             Upload(customers, customerProducts);
         }
-        private static void OpenOutlook()
-        {
-            try
-            {
-                Outlook.Application oApp = new Outlook.Application();
-                Outlook._MailItem mailItem = (Outlook._MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
-                mailItem.Subject = "This is the subject";
-                mailItem.To = "someone@example.com";
-                mailItem.Body = "This is the message.";
-                mailItem.Display(true);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
+        //private static void OpenOutlook()
+        //{
+        //    try
+        //    {
+        //        Outlook.Application oApp = new Outlook.Application();
+        //        Outlook._MailItem mailItem = (Outlook._MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
+        //        mailItem.Subject = "This is the subject";
+        //        mailItem.To = "someone@example.com";
+        //        mailItem.Body = "This is the message.";
+        //        mailItem.Display(true);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //    }
+        //}
 
         static void Main(string[] args)
         {
-            //ReadCustomer();
-            OpenOutlook();
+            ReadCustomer();
+            //OpenOutlook();
         }
     }
 }

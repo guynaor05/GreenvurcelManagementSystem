@@ -25,8 +25,10 @@ namespace GreenvurcelDAL
         public string Job { get; set; }
         public List<Phone> Phones { get; set; }
         public List<Email> Emails { get; set; }
-        public string Notes { get; set; }
+        public string DefaultEmail { get; set; }
 
+        public string Notes { get; set; }
+        public string Fax { get; set; }
     }
 }
 

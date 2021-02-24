@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFCustomMessageBox;
 
 namespace GreenvurcelUI
 {
@@ -562,7 +563,7 @@ namespace GreenvurcelUI
 
             foreach (char c in text)
             {
-                if (!char.IsDigit(c) && c != '-')
+                if (!char.IsDigit(c) && c != '-' && c != '(' && c != ')')
                 {
                     return false;
                 }
@@ -597,7 +598,7 @@ namespace GreenvurcelUI
             if (FirstName.Text == "" && LastName.Text == "" && HomeCountry.Text == "" && HomeCity.Text == "" && HomeStreet.Text == "" && Grade.Text == "" && WorkCountry.Text == ""
                  && WorkCity.Text == "" && WorkStreet.Text == "" && HomePostalCode.Text == "" && WorkPostalCode.Text == "" && (Phones.Items.Count == 0 && Emails.Items.Count == 0 && BirthDate.SelectedDate == null && Notes.Text == "" && Job.Text == "" && WorkState.Text == "" && HomeState.Text == ""))
             {
-                MessageBox.Show("Cant register because all text boxes are empty");
+                CustomMessageBox.Show("Cant register because all text boxes are empty");
             }
             else
             {
@@ -630,6 +631,7 @@ namespace GreenvurcelUI
                     WorkCity = WorkCity.Text,
                     WorkStreet = WorkStreet.Text,
                     CompanyName = CompanyName.Text,
+                    DefaultEmail = defaultEmailComboBox.Text,
                     Phones = phones,
                     Emails = emails,
                     Notes = Notes.Text
@@ -654,7 +656,7 @@ namespace GreenvurcelUI
                 Phones.Items.Clear();
                 Emails.Items.Clear();
                 Notes.Text = "";
-                MessageBox.Show("Registered Successfully");            
+                CustomMessageBox.Show("Registered Successfully");            
             }
         }
     }

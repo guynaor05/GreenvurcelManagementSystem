@@ -25,8 +25,7 @@ namespace GreenvurcelDAL
         #endregion
 
         #region Events
-        
-        public event Action CustomerAdded;
+        public event Action<long, string> CustomerAdded;
         public event Action CustomerRemoved;
         public event Action CustomerUpadted;
         #endregion
@@ -62,13 +61,13 @@ namespace GreenvurcelDAL
             long id = GetNextCounterValue();
             customer._id = id;
             collection.InsertOne(customer);
-            CustomerAdded?.Invoke();
+            CustomerAdded?.Invoke(customer._id, customer.DefaultEmail);
         }
         public void InsertCustomerWithId(Customer customer)
         {
             var collection = _database.GetCollection<Customer>(COLLECTION_NAME_CUSTOMERS);
             collection.InsertOne(customer);
-            CustomerAdded?.Invoke();
+            CustomerAdded?.Invoke(customer._id, customer.DefaultEmail);
         }
 
         public List<Customer> LoadCustomers()
@@ -175,6 +174,7 @@ namespace GreenvurcelDAL
             collection.InsertOne(new Counter { Id = "Counter", Value = id});
             return id;
         }
+       
         #endregion
 
         #region Private Methods

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFCustomMessageBox;
 
 namespace GreenvurcelUI
 {
@@ -520,7 +521,7 @@ namespace GreenvurcelUI
 
             foreach (char c in text)
             {
-                if (!char.IsDigit(c))
+                if (!char.IsDigit(c) && c != '-' && c != '(' && c != ')')
                 {
                     return false;
                 }
@@ -556,7 +557,7 @@ namespace GreenvurcelUI
             if (FirstName.Text == "" && LastName.Text == "" && HomeCountry.Text == "" && HomeCity.Text == "" && HomeStreet.Text == "" && Grade.Text == "" && WorkCountry.Text == ""
                 && WorkCity.Text == "" && WorkStreet.Text == "" && HomePostalCode.Text == "" && WorkPostalCode.Text == "" && (Phones.Items.Count == 0 && Emails.Items.Count == 0 && BirthDate.SelectedDate == null && Notes.Text == "" && Job.Text == "" && WorkState.Text == "" && HomeState.Text == ""))
             {
-                MessageBox.Show("Cant register because all text boxes are empty");
+                CustomMessageBox.Show("Cant register because all text boxes are empty");
             }
 
             else
@@ -593,6 +594,7 @@ namespace GreenvurcelUI
                     CompanyName = CompanyName.Text,
                     Phones = phones,
                     Emails = emails,
+                    DefaultEmail = defaultEmailComboBox.Text,
                     Notes = Notes.Text
                 };
                 CustomerContext.Instance.UpdateCustomer(customerID, customer);
@@ -621,7 +623,7 @@ namespace GreenvurcelUI
                 ViewDetails.Visibility = Visibility.Visible;
                 DetailsButtons.Visibility = Visibility.Collapsed;
                 UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
-                MessageBox.Show("Updated Details Successfully");
+                CustomMessageBox.Show("Updated Details Successfully");
             }
         }
     
@@ -663,74 +665,78 @@ namespace GreenvurcelUI
             CustomerID.IsReadOnly = true;
             string customerID = CustomerID.Text;
             Customer details = CustomerContext.Instance.LoadCustomerById(customerID, out bool succeeded);
-            if (!succeeded)
+            if(CustomerID.Text != null)
             {
-                IDPanel.Visibility = Visibility.Visible;
-                ViewDetails.Visibility = Visibility.Collapsed;
-                UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
-                ViewDetails.Visibility = Visibility.Visible;
-                MessageBox.Show("Unable to connect to databse");
-                CustomerID.IsReadOnly = false;
-            }
-            else if (details == null)
-            {
-                ViewDetails.Visibility = Visibility.Visible;
-                IDPanel.Visibility = Visibility.Visible;
-                MessageBox.Show("Customer Id does not exist");
-                CustomerID.IsReadOnly = false;
-                DetailsButtons.Visibility = Visibility.Collapsed;
-                UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                ViewDetails.Visibility = Visibility.Collapsed;
-                UpdateDetailsTabControl.Visibility = Visibility.Visible;
-                DetailsButtons.Visibility = Visibility.Visible;
-                FirstName.Text = details.FirstName;
-                LastName.Text = details.LastName;
-                BirthDate.Text = details.BirthDate;
-                Grade.Text = details.Grade;
-                Job.Text = details.Job;
-                HomeState.Text = details.HomeState;
-                HomeCountry.Text = details.HomeCountry;
-                HomeCity.Text = details.HomeCity;
-                HomeStreet.Text = details.HomeStreet;
-                HomePostalCode.Text = details.HomePostalCode;
-                WorkPostalCode.Text = details.WorkPostalCode;
-                WorkState.Text = details.WorkState;
-                WorkCountry.Text = details.WorkCountry;
-                WorkCity.Text = details.WorkCity;
-                WorkStreet.Text = details.WorkStreet;
-                CompanyName.Text = details.CompanyName;
-                Phones.Items.Clear();
-                Emails.Items.Clear();
-                Notes.Text = details.Notes;
-                if (details.Phones != null)
+
+                if (!succeeded)
                 {
-                    foreach (Phone phone in details.Phones)
+                    IDPanel.Visibility = Visibility.Visible;
+                    ViewDetails.Visibility = Visibility.Collapsed;
+                    UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
+                    ViewDetails.Visibility = Visibility.Visible;
+                    CustomMessageBox.Show("Unable to connect to databse");
+                    CustomerID.IsReadOnly = false;
+                }
+                else if (details == null)
+                {
+                    ViewDetails.Visibility = Visibility.Visible;
+                    IDPanel.Visibility = Visibility.Visible;
+                    CustomMessageBox.Show("Customer Id does not exist");
+                    CustomerID.IsReadOnly = false;
+                    DetailsButtons.Visibility = Visibility.Collapsed;
+                    UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ViewDetails.Visibility = Visibility.Collapsed;
+                    UpdateDetailsTabControl.Visibility = Visibility.Visible;
+                    DetailsButtons.Visibility = Visibility.Visible;
+                    FirstName.Text = details.FirstName;
+                    LastName.Text = details.LastName;
+                    BirthDate.Text = details.BirthDate;
+                    Grade.Text = details.Grade;
+                    Job.Text = details.Job;
+                    HomeState.Text = details.HomeState;
+                    HomeCountry.Text = details.HomeCountry;
+                    HomeCity.Text = details.HomeCity;
+                    HomeStreet.Text = details.HomeStreet;
+                    HomePostalCode.Text = details.HomePostalCode;
+                    WorkPostalCode.Text = details.WorkPostalCode;
+                    WorkState.Text = details.WorkState;
+                    WorkCountry.Text = details.WorkCountry;
+                    WorkCity.Text = details.WorkCity;
+                    WorkStreet.Text = details.WorkStreet;
+                    CompanyName.Text = details.CompanyName;
+                    defaultEmailComboBox.Text = details.DefaultEmail;
+                    Phones.Items.Clear();
+                    Emails.Items.Clear();
+                    Notes.Text = details.Notes;
+                    if (details.Phones != null)
                     {
-                        Phones.Items.Add(phone);
+                        foreach (Phone phone in details.Phones)
+                        {
+                            Phones.Items.Add(phone);
+                        }
+
                     }
 
-                }
-
-                if(details.Emails != null)
-                {
-                    foreach (Email email in details.Emails)
+                    if(details.Emails != null)
                     {
-                        Emails.Items.Add(email);
+                        foreach (Email email in details.Emails)
+                        {
+                            Emails.Items.Add(email);
+                        }
                     }
+                    //if (ButtonEnable())
+                    //{
+                    //    UpadteDetailsButton.IsEnabled = true;
+                    //}
+                    //else
+                    //{
+                    //    UpadteDetailsButton.IsEnabled = false;
+
+                    //}
                 }
-
-                //if (ButtonEnable())
-                //{
-                //    UpadteDetailsButton.IsEnabled = true;
-                //}
-                //else
-                //{
-                //    UpadteDetailsButton.IsEnabled = false;
-
-                //}
             }
         }
     }
