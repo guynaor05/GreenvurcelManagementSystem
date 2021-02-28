@@ -97,7 +97,8 @@ namespace Tests
                             FirstName = firstSheet.Cells["C" + i].Text,
                             LastName = firstSheet.Cells["B" + i].Text,
                             Grade = firstSheet.Cells["M" + i].Text,
-                            HomeCountry = firstSheet.Cells["G" + i].Text,
+                            HomeState = firstSheet.Cells["G" + i].Text,
+                            HomeCountry = firstSheet.Cells["F" + i].Text,
                             HomeCity = firstSheet.Cells["E" + i].Text,
                             HomeStreet = firstSheet.Cells["D" + i].Text,
                             HomePostalCode = firstSheet.Cells["H" + i].Text,
@@ -169,7 +170,8 @@ namespace Tests
                         CustomerProduct customerProduct = new CustomerProduct
                         {
                             CustomerID = long.Parse(firstSheet.Cells["A" + i].Text),
-                            ProductName = firstSheet.Cells["B" + i].Text
+                            ProductName = firstSheet.Cells["B" + i].Text,
+                            IsObject = bool.Parse(firstSheet.Cells["C" + i].Text)
                         };
                         customerProducts.Add(customerProduct);
                     }

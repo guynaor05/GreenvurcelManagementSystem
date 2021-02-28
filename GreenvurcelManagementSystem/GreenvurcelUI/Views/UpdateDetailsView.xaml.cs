@@ -529,6 +529,23 @@ namespace GreenvurcelUI
 
             return true;
         }
+        private bool ValidateNumbers(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+
+            foreach (char c in text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
 
         private bool ValidateStreet(string text)
@@ -662,12 +679,11 @@ namespace GreenvurcelUI
 
         private void UpdateCustomer()
         {
-            CustomerID.IsReadOnly = true;
             string customerID = CustomerID.Text;
             Customer details = CustomerContext.Instance.LoadCustomerById(customerID, out bool succeeded);
-            if(CustomerID.Text != null)
+            if(ValidateNumbers(CustomerID.Text))
             {
-
+                CustomerID.IsReadOnly = true;
                 if (!succeeded)
                 {
                     IDPanel.Visibility = Visibility.Visible;
@@ -737,6 +753,10 @@ namespace GreenvurcelUI
 
                     //}
                 }
+            }
+            else
+            {
+                CustomMessageBox.Show("Invalid input");
             }
         }
     }

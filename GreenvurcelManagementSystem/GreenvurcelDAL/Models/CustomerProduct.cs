@@ -13,5 +13,6 @@ namespace GreenvurcelDAL
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CategoryName { get; set; }
+        public bool IsObject { get; set; }
     }
 }

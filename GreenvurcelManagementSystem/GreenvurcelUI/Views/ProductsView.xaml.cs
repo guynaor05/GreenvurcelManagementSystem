@@ -16,6 +16,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Linq;
 using WPFCustomMessageBox;
+using System.Collections.ObjectModel;
 
 namespace GreenvurcelUI
 {
@@ -25,7 +26,6 @@ namespace GreenvurcelUI
     public partial class ProductsView : UserControl
     {
         private List<CustomerProduct> products;
-
         public ProductsView()
         {
             InitializeComponent();
@@ -120,14 +120,27 @@ namespace GreenvurcelUI
             {
                 if (FilterBox.Text != "")
                 {
-                    if (ValidateLetter(FilterBox.Text))
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName.Contains(FilterBox.Text));
+                        List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomersUpper = products.FindAll(product => product.ProductName != null && product.ProductName.Contains(filterUpper));
+                        foreach (CustomerProduct filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomersLower = products.FindAll(product => product.ProductName != null && product.ProductName.Contains(filterUpper));
+                        foreach (CustomerProduct filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
                         Products.ItemsSource = filteredCustomers;
                     }
                     else
                     {
-                        Products.ItemsSource = null;
+                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredCustomers;
                     }
                 }
                 else
@@ -139,10 +152,55 @@ namespace GreenvurcelUI
             {
                 if (FilterBox.Text != "")
                 {
-                    if (ValidateLetter(FilterBox.Text))
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
+                    {
+                        List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomersUpper = products.FindAll(product => product.CategoryName != null && product.CategoryName.Contains(filterUpper));
+                        foreach (CustomerProduct filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomersLower = products.FindAll(product => product.CategoryName != null && product.CategoryName.Contains(filterLower));
+                        foreach (CustomerProduct filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
+                        Products.ItemsSource = filteredCustomers;
+                    }
+                    else
                     {
                         List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CategoryName.Contains(FilterBox.Text));
                         Products.ItemsSource = filteredCustomers;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
+            }
+            if (selectedFilter == "Object")
+            {
+                if (FilterBox.Text != "")
+                {
+                    if (FilterBox.Text == "true" || FilterBox.Text == "false" || FilterBox.Text == "False" || FilterBox.Text == "True")
+                    {
+                        List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomersUpper = products.FindAll(product => product.IsObject.Equals(bool.Parse(filterUpper)));
+                        foreach (CustomerProduct filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomersLower = products.FindAll(product => product.IsObject.Equals(bool.Parse(filterLower)));
+                        foreach (CustomerProduct filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
+                        Products.ItemsSource = filteredCustomers;
+
                     }
                     else
                     {
@@ -167,16 +225,20 @@ namespace GreenvurcelUI
             {
                 if (CustomerContext.Instance.CheckIfIdExist(long.Parse(CustomerID.Text)))
                 {
+                    bool isChecked = (bool)objectCheckBox.IsChecked;
                     CustomerProduct CustomerProduct = new CustomerProduct
                     {
                         CustomerID = long.Parse(CustomerID.Text),
                         ProductName = ProductName.Text,
-                        CategoryName = Category.Text
+                        CategoryName = Category.Text,
+                        IsObject = isChecked
                     };
+                    var sad = objectCheckBox;
                     CustomerProductsContext.Instance.InsertCustomerProduct(CustomerProduct);
                     CustomerID.Text = "";
                     ProductName.Text = "";
                     Category.Text = "";
+                    objectCheckBox.IsChecked = false;
                     CustomMessageBox.Show("Product added Successfully");
                 }
                 else
@@ -228,6 +290,21 @@ namespace GreenvurcelUI
                 }
             }
         }
+        private bool ValidateSpaceLetterAndNumber(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c) && (!char.IsDigit(c)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private bool ValidateLetter(string text)
         {
             foreach (char c in text)
@@ -255,7 +332,14 @@ namespace GreenvurcelUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ListToExcel(Products.ItemsSource.Cast<CustomerProduct>().ToList());
+            if (Products.ItemsSource != null)
+            {
+                ListToExcel(Products.ItemsSource.Cast<CustomerProduct>().ToList());
+            }
+            else
+            {
+                CustomMessageBox.Show("Cant export without products");
+            }
         }
 
         private void ListToExcel(List<CustomerProduct> list)
@@ -303,6 +387,26 @@ namespace GreenvurcelUI
 
                 workbook.SaveAs(System.IO.Path.GetFullPath(dlg.FileName.ToString()));
             }
+        }
+        static string UppercaseFirst(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(filterBoxText[0]) + filterBoxText.Substring(1);
+        }
+        static string LowercaseFirst(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToLower(filterBoxText[0]) + filterBoxText.Substring(1);
         }
     }
 }

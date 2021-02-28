@@ -108,14 +108,27 @@ namespace GreenvurcelUI
             {
                 if (FilterBox.Text != "")
                 {
-                    if (ValidateLetter(FilterBox.Text))
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.FirstName.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = new List<Customer>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.FirstName.Contains(filterUpper));
+                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.FirstName.Contains(filterUpper));
+                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
                     {
-                        Customers.ItemsSource = null;
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.FirstName.Contains(FilterBox.Text));
+                        Customers.ItemsSource = filteredCustomers;
                     }
                 }
                 else
@@ -127,14 +140,27 @@ namespace GreenvurcelUI
             {
                 if (FilterBox.Text != "")
                 {
-                    if (ValidateLetter(FilterBox.Text))
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.LastName.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = new List<Customer>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.LastName.Contains(filterUpper));
+                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.LastName.Contains(filterUpper));
+                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
                         Customers.ItemsSource = filteredCustomers;
-                    }
+                        }
                     else
                     {
-                        Customers.ItemsSource = null;
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.LastName.Contains(FilterBox.Text));
+                        Customers.ItemsSource = filteredCustomers;
                     }
                 }
                 else
@@ -146,14 +172,27 @@ namespace GreenvurcelUI
             {
                 if (FilterBox.Text != "")
                 {
-                    if (ValidateLetter(FilterBox.Text))
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCountry.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = new List<Customer>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.HomeCountry.Contains(filterUpper));
+                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.HomeCountry.Contains(filterUpper));
+                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
                     {
-                        Customers.ItemsSource = null;
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.HomeCountry.Contains(FilterBox.Text));
+                        Customers.ItemsSource = filteredCustomers;
                     }
                 }
                 else
@@ -161,18 +200,32 @@ namespace GreenvurcelUI
                     Customers.ItemsSource = null;
                 }
             }
+            
             else if (selectedFilter == "Home State")
             {
                 if (FilterBox.Text != "")
                 {
-                    if (ValidateLetter(FilterBox.Text))
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = new List<Customer>();
+                        string filterUpper = UppercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.Contains(filterUpper));
+                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
+                        {
+                            filteredCustomers.Add(filteredCustomerUpper);
+                        }
+                        string filterLower = LowercaseFirst(FilterBox.Text);
+                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.Contains(filterLower));
+                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
+                        {
+                            filteredCustomers.Add(filteredCustomerLower);
+                        }
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
                     {
-                        Customers.ItemsSource = null;
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.Contains(FilterBox.Text));
+                        Customers.ItemsSource = filteredCustomers;
                     }
                 }
                 else
@@ -186,7 +239,7 @@ namespace GreenvurcelUI
                 {
                     if (ValidateNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.Grade == FilterBox.Text);
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.Grade != null && customer.Grade == FilterBox.Text);
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
@@ -210,6 +263,21 @@ namespace GreenvurcelUI
                 }
             }
 
+            return true;
+        }
+        private bool ValidateSpaceLetterAndNumber(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c) && (!char.IsDigit(c)))
+                {
+                    return false;
+                }
+            }
             return true;
         }
         private bool ValidateLetter(string text)
@@ -267,7 +335,14 @@ namespace GreenvurcelUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ListToExcel(Customers.ItemsSource.Cast<Customer>().ToList());
+            if(Customers.ItemsSource != null)
+            {
+                ListToExcel(Customers.ItemsSource.Cast<Customer>().ToList());
+            }
+            else
+            {
+                CustomMessageBox.Show("Cant export without customers");
+            }
         }
 
         private void ListToExcel(List<Customer> list)
@@ -400,15 +475,31 @@ namespace GreenvurcelUI
                 string toGroup = "";
                 if (Customers.SelectedItems.Cast<Customer>().ToList().Count == 0)
                 {
-                    GetAllViewedCustomersEmails();
+                    toGroup = GetAllViewedCustomersEmails();
                 }
                 else
                 {
-                    if (GetSelectedCustomersEmails() == "")
+                    string SelectedEmails = GetSelectedCustomersEmails();
+                    if (SelectedEmails == "")
                     {
-                        toGroup = GetAllViewedCustomersEmails();
-                        StartOutLook(toGroup);
-                        return;
+                        MessageBoxResult mbResultForNoEmails = CustomMessageBox.ShowOKCancel("No emails in selected customers do you want to send email to all viewed customers?",
+                                                                              "Send Email",
+                                                                              "Yes",
+                                                                              "No");
+                        switch (mbResultForNoEmails) 
+                        {
+                            case MessageBoxResult.OK:
+                                toGroup = GetAllViewedCustomersEmails();
+                                StartOutLook(toGroup);
+                                return;
+
+                            case MessageBoxResult.Cancel:
+                                return;
+
+                            case MessageBoxResult.None:
+                                return;
+                        }
+                        
                     }
                     MessageBoxResult mbResult = CustomMessageBox.ShowOKCancel("Send email to selected customers or to all viewed customers",
                                                                               "Send Email",
@@ -433,7 +524,7 @@ namespace GreenvurcelUI
             }
             catch (Exception)
             {
-
+                CustomMessageBox.Show("Error");
             }
         }
 
@@ -467,7 +558,6 @@ namespace GreenvurcelUI
                     toGroup += defaultEmail + ";";
                 }
             }
-            toGroup = toGroup[0..^1];
             return toGroup;
         }
 
@@ -501,6 +591,26 @@ namespace GreenvurcelUI
                     CurrentSelectedEmail[id] = newdefaultEmail;
                 }
             }
+        }
+        static string UppercaseFirst(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(filterBoxText[0]) + filterBoxText.Substring(1);
+        }
+        static string LowercaseFirst(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToLower(filterBoxText[0]) + filterBoxText.Substring(1);
         }
     }
 }

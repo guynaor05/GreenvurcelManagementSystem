@@ -119,13 +119,13 @@
                                     <ComboBoxItem Content="Work"/>
                                 </ComboBox>
                                 <TextBox x:Name="Email" Style="{StaticResource TextBox}" FontSize="14" TextChanged="Email_TextChanged"/>
-                                <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddEmail_Click">
+                                <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Style="{StaticResource ButtonStyleWithOutBorder}" Click="AddEmail_Click">
                                     <Grid>
-                                        <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                        <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
                                     </Grid>
                                 </Button>
                             </StackPanel>
-                            <ListView x:Name="Emails" Foreground="Black" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
+                            <ListView x:Name="Emails" BorderBrush="White" Foreground="Black" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -133,14 +133,14 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0">
+                                            <TextBlock Grid.Column="0" Margin="5">
                                             <TextBlock Text="{Binding EmailType}"/>
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding EmailAddress}"/>
                                         </TextBlock>
-                                            <Button Grid.Column="1" x:Name="RemoveEmail" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemoveEmail_Click">
+                                            <Button Grid.Column="1" x:Name="RemoveEmail" Margin="10 0 0 0" ToolTip="Remove" Style="{StaticResource ButtonStyleWithOutBorder}" Click="RemoveEmail_Click">
                                                 <Grid>
-                                                    <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
+                                                    <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
                                                 </Grid>
                                             </Button>
                                         </Grid>
@@ -197,13 +197,13 @@
                                     </Style>
                                 </ComboBox>
                                 <TextBox x:Name="Phone" Style="{StaticResource TextBox}" FontSize="14" TextChanged="Phone_TextChanged"/>
-                                <Button x:Name="AddPhone" Margin="10 0 0 0" ToolTip="Add" Background="#FF383232" BorderBrush="#FF383232" Click="AddPhone_Click">
+                                <Button x:Name="AddPhone" Margin="10 0 0 0" ToolTip="Add" Style="{StaticResource ButtonStyleWithOutBorder}" Click="AddPhone_Click">
                                     <Grid>
-                                        <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                        <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
                                     </Grid>
                                 </Button>
                             </StackPanel>
-                            <ListView x:Name="Phones" Background="#FF383232" Foreground="White" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
+                            <ListView x:Name="Phones" BorderBrush="White" Background="White" Foreground="Black" Margin="0 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -211,14 +211,14 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0">
+                                            <TextBlock Grid.Column="0" Margin="5">
                                             <TextBlock Text="{Binding PhoneType}"/>
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding PhoneNumber}"/>  
                                         </TextBlock>
-                                            <Button Grid.Column="1" x:Name="RemovePhone" ToolTip="Remove" Background="#FF383232" BorderBrush="#FF383232" Click="RemovePhone_Click">
+                                            <Button Grid.Column="1" x:Name="RemovePhone" ToolTip="Remove" Margin="10 0 0 0" Style="{StaticResource ButtonStyleWithOutBorder}" Click="RemovePhone_Click">
                                                 <Grid>
-                                                    <Path Stretch="Fill" Fill="White" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
+                                                    <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="m511.058 60.811-60.811-60.811-194.718 194.718-194.718-194.718-60.811 60.811 194.718 194.718-194.718 194.718 60.811 60.811 194.718-194.718 194.718 194.718 60.811-60.811-194.718-194.718z"/>
                                                 </Grid>
                                             </Button>
                                         </Grid>
@@ -237,7 +237,7 @@
                     </StackPanel>
                     <StackPanel Margin="65 10" HorizontalAlignment="Left">
                         <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="300" MinHeight="120" MaxHeight="70" AcceptsReturn="True" TextChanged="Notes_TextChanged" BorderBrush="Black"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="450" MinHeight="120" MaxHeight="70" AcceptsReturn="True" TextChanged="Notes_TextChanged" BorderBrush="Black"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
