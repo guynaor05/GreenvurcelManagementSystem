@@ -7,10 +7,14 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" FontWeight="UltraLight" FontFamily="Century Gothic">
+    <UserControl.Resources>
+        <local:NotEmptyConverter x:Key="NotEmptyConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -18,9 +22,25 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-
-        <DataGrid Name="Customers" Grid.Row="0" Grid.Column="1" MaxWidth="750" ItemsSource="{Binding}" FontSize="12" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="300" Style="{StaticResource DataGridStyle}">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 5" Grid.Column="1">
+            <Button ToolTip="Export file to excel" Click="Button_Click" Style="{StaticResource ButtonStyleWithOutBorder}" Margin="5 0" FontSize="16">
+                <Viewbox Height="40" Width="40">
+                    <Grid>
+                        <Path Fill="Black" Data="M52.946,23.348H42.834v6h10.112c3.007,0,5.34,1.536,5.34,2.858v26.606c0,1.322-2.333,2.858-5.34,2.858H14.724   c-3.007,0-5.34-1.536-5.34-2.858V32.207c0-1.322,2.333-2.858,5.34-2.858h10.11v-6h-10.11c-6.359,0-11.34,3.891-11.34,8.858v26.606   c0,4.968,4.981,8.858,11.34,8.858h38.223c6.358,0,11.34-3.891,11.34-8.858V32.207C64.286,27.239,59.305,23.348,52.946,23.348z"/>
+                        <Path Fill="Black" Data="M24.957,14.955c0.768,0,1.535-0.293,2.121-0.879l3.756-3.756v13.028v6v11.494c0,1.657,1.343,3,3,3s3-1.343,3-3V29.348v-6   V10.117l3.959,3.959c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242l-8.957-8.957   C35.492,0.291,34.725,0,33.958,0c-0.008,0-0.015,0-0.023,0s-0.015,0-0.023,0c-0.767,0-1.534,0.291-2.12,0.877l-8.957,8.957   c-1.172,1.171-1.172,3.071,0,4.242C23.422,14.662,24.189,14.955,24.957,14.955z"/>
+                    </Grid>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="Email" Click="OutLook_Click" Style="{StaticResource ButtonStyleWithOutBorder}" Margin="10 0" FontSize="16">
+                <Viewbox Height="40" Width="40">
+                    <Grid>
+                        <Path Fill="Black" Data="M256,60c-57.897,0-105,47.103-105,105c0,35.943,18.126,69.015,48.487,88.467c31.003,19.863,69.06,21.974,104.426,5.703    c7.525-3.462,10.82-12.37,7.357-19.896c-3.462-7.525-12.369-10.82-19.896-7.358c-25.86,11.898-53.454,10.545-75.703-3.709    C193.961,214.298,181,190.669,181,165c0-41.355,33.645-75,75-75s75,33.645,75,75c0,8.271-6.729,15-15,15    c-7.558,0-14.618-5.732-14.998-14.772C301.001,165.152,301,165.076,301,165c0-24.813-20.187-45-45-45s-45,20.187-45,45    s20.187,45,45,45c11.516,0,22.031-4.353,29.999-11.494C293.966,205.648,304.483,210,316,210c24.813,0,45-20.187,45-45    C361,107.103,313.897,60,256,60z M270.789,167.406C269.631,174.535,263.45,180,256,180c-8.271,0-15-6.729-15-15s6.729-15,15-15    c7.691,0,14.04,5.82,14.895,13.285C270.671,164.648,270.634,166.035,270.789,167.406z"/>
+                        <Path Fill="Black" Data="M480.999,196.976c-0.004-3.879-1.566-7.756-4.393-10.583L421,130.787V15c0-8.284-6.716-15-15-15H106    c-8.284,0-15,6.716-15,15v115.787l-55.606,55.606c-0.052,0.052-0.096,0.11-0.147,0.163c-2.811,2.896-4.24,6.709-4.246,10.42    c0,0.01-0.001,0.019-0.001,0.029V467c0,24.845,20.216,45,45,45h360c24.839,0,45-20.207,45-45V197.005    C481,196.995,480.999,196.986,480.999,196.976z M421,173.213L444.787,197L421,220.787V173.213z M121,137.005    c0-0.003,0-0.007,0-0.01V30h270v106.995c0,0.003,0,0.007,0,0.01v113.782L309.787,332H202.213L121,250.787V137.005z M91,173.213    v47.574L67.213,197L91,173.213z M61,460.787V233.213L174.787,347L61,460.787z M82.214,482l119.999-120h107.574l119.999,120H82.214    z M451,460.787L337.213,347L451,233.213V460.787z"/>
+                    </Grid>
+                </Viewbox>
+            </Button>
+        </StackPanel>
+        <DataGrid Name="Customers" Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" MaxWidth="900" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" Background="White" MaxHeight="375" Style="{StaticResource DataGridStyle}">
             <DataGrid.Resources>
                 <ContextMenu x:Key="ContextMenuTemplate">
                     <MenuItem Header="Update Customer" Click="UpdateCustomer">
@@ -46,6 +66,24 @@
                             </Viewbox>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Add Product" Click="AddProduct">
+                        <MenuItem.Icon>
+                            <Viewbox>
+                                <Grid>
+                                    <Path Stretch="Fill" Fill="Green" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
+                                </Grid>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Show Product" Click="ShowProduct">
+                        <MenuItem.Icon>
+                            <Viewbox>
+                                <Grid>
+                                    <Path Fill="Black" Data="M244.425,98.725c-93.4,0-178.1,51.1-240.6,134.1c-5.1,6.8-5.1,16.3,0,23.1c62.5,83.1,147.2,134.2,240.6,134.2   s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025   c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3   C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7   c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"/>
+                                </Grid>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </DataGrid.Resources>
             
@@ -61,22 +99,24 @@
                 <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Header="Birth Date" Binding="{Binding BirthDate}"/>
                 <DataGridTextColumn Header="Grade" Binding="{Binding Grade}"/>
+                <DataGridTextColumn Header="Home State" Binding="{Binding HomeState}"/>
                 <DataGridTextColumn Header="Home Country" Binding="{Binding HomeCountry}"/>
                 <DataGridTextColumn Header="Home City" Binding="{Binding HomeCity}"/>
                 <DataGridTextColumn Header="Home Street" Binding="{Binding HomeStreet}"/>
-                <DataGridTextColumn Header="Postal Code" Binding="{Binding PostalCode}"/>
+                <DataGridTextColumn Header="Home Postal Code" Binding="{Binding HomePostalCode}"/>
+                <DataGridTextColumn Header="Work Postal Code" Binding="{Binding WorkPostalCode}"/>
+                <DataGridTextColumn Header="Work State" Binding="{Binding WorkState}"/>
                 <DataGridTextColumn Header="Work Country" Binding="{Binding WorkCountry}"/>
                 <DataGridTextColumn Header="Work City" Binding="{Binding WorkCity}"/>
                 <DataGridTextColumn Header="Work Street" Binding="{Binding WorkStreet}"/>
                 <DataGridTextColumn Header="Compnay Name" Binding="{Binding CompanyName}"/>
-
                 <DataGridTemplateColumn Header="Phones">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Phones}">
+                            <ComboBox ItemsSource="{Binding Phones}" Style="{StaticResource ComboBoxWithOutTextBox}" Width="auto" SelectedItem="{Binding Phones[0]}" IsSynchronizedWithCurrentItem="True">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock>
+                                        <TextBlock Width="auto">
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0} - {1}">
                                                     <Binding Path="PhoneType" />
@@ -90,65 +130,59 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Emails">
+                <DataGridTemplateColumn Header="Emails" x:Name="Emails">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Emails}">
+                            <ComboBox x:Name="EmailsComboBox" SelectionChanged="EmailsComboBox_SelectionChanged" Style="{StaticResource ComboBoxWithOutTextBox}" ItemsSource="{Binding Emails}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding DefaultEmail}" Width="auto">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} - {1}">
-                                                    <Binding Path="EmailType" />
-                                                    <Binding Path="EmailAddress" />
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
+                                        <Grid>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                        <Binding Path="EmailType"/>
+                                                        <Binding Path="EmailAddress"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Notes">
+                <DataGridTextColumn Header="Notes" Binding="{Binding Notes}">
                     <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellStyle}">
                             <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="LightGray"/>
-                                </Trigger>
+                                <DataTrigger Binding="{Binding Notes, Converter={StaticResource NotEmptyConverter}}" Value="True">
+                                    <Setter Property="ToolTip" Value="{Binding Notes}" />
+                                </DataTrigger>
                             </Style.Triggers>
-                            <Setter Property="ToolTip" Value="{Binding Notes}" />
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="10 5" HorizontalAlignment="Center">
-            <TextBlock Text="Filter" Style="{StaticResource RegistrationPart}"/>
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                <ComboBox x:Name="FilterComboBox">
-                    <ComboBoxItem IsSelected="True" Content="First Name"/>
-                    <ComboBoxItem Content="Last Name"/>
-                    <ComboBoxItem Content="Home Country"/>
-                    <ComboBoxItem Content="Home City"/>
-                    <ComboBoxItem Content="Grade"/>
-                </ComboBox>
-                <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" BorderBrush="Gray"/>
-                <Button x:Name="FilterButton" Width="20" ToolTip="Search" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="FilterButton_Click">
-                    <Viewbox>
-                        <Grid>
-                            <Path Fill="white" Data="M574.099,469.235L437.61,353.434c-3.248-2.709-7.227-4.171-11.266-4.171c-5.643,0-11.018,2.843-14.373,7.606    c-15.533,22.029-34.578,41.087-56.611,56.635c-4.1,2.895-6.816,7.319-7.449,12.143c-0.635,4.828,0.775,9.602,3.975,13.439    l115.873,136.61c7.852,9.422,19.252,14.859,31.23,14.859c10.768,0,21.021-4.324,28.877-12.179l48.98-48.981    c8.346-8.348,12.656-19.241,12.137-30.68C588.46,487.269,583.175,476.8,574.099,469.235z"/>
-                            <Path Fill="white" Data="M218.399,433.743c57.923,0,112.385-22.559,153.348-63.522c40.965-40.965,63.523-95.423,63.523-153.349    C435.271,97.29,337.983,0,218.399,0C98.814,0,1.53,97.29,1.53,216.872S98.817,433.743,218.399,433.743z M71.81,216.872    c0-80.83,65.759-146.589,146.589-146.589c80.831,0,146.588,65.759,146.588,146.589c0,39.091-15.262,75.885-42.982,103.602    c-27.721,27.718-64.515,42.984-103.606,42.984C137.569,363.461,71.81,297.701,71.81,216.872z"/>
-                        </Grid>
-                    </Viewbox>
-                </Button>
-                <Button x:Name="ResetButton" ToolTip="Reset" Foreground="White" Margin="10 0 0 0" Background="#FF383232" BorderBrush="#FF383232" Click="ResetButton_Click">
-                    <Grid>
-                        <Path Stretch="Fill" Fill="white" Height="20" Width="20" Data="M408.973,142.689C368.113,101.829,313.785,79.326,256,79.326h-31.717l50.907-51.032L246.826,0L147.68,99.389    l97.852,99.488l28.563-28.093l-50.551-51.396H256c97.198,0,176.275,79.076,176.275,176.275S353.198,471.938,256,471.938    S79.725,392.861,79.725,295.659v-20.031l-40.062,0.004v20.031c0,57.786,22.503,112.113,63.364,152.973    C143.887,489.497,198.215,512,256,512c57.785,0,112.113-22.503,152.973-63.364c40.861-40.861,63.364-95.188,63.364-152.973    S449.834,183.55,408.973,142.689z"/>
-                    </Grid>
-                </Button>
+        <StackPanel Orientation="Vertical" Margin="10 20" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center">
+            <TextBlock Text="Filter By" Style="{StaticResource RegistrationPart}" FontSize="16"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="FilterComboBox" FontSize="16" Style="{StaticResource ComboBoxWithTextBox}">
+                        <ComboBoxItem IsSelected="True" Content="First Name"/>
+                        <ComboBoxItem Content="Last Name"/>
+                        <ComboBoxItem Content="Home Country"/>
+                        <ComboBoxItem Content="Home State"/>
+                        <ComboBoxItem Content="Home City"/>
+                        <ComboBoxItem Content="Grade"/>
+                    </ComboBox>
+                    <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" Margin="0 0 5 0" FontSize="16"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="FilterButton" Style="{StaticResource ButtonStyle}" Content="Search" Click="FilterButton_Click" Margin="0 15 5 0" Width="125"/>
+                    <Button x:Name="ResetButton" Style="{StaticResource ButtonStyle}" Content="Reset" Click="ResetButton_Click" Margin="5 15 5 0" Width="125"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

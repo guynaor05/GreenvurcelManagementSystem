@@ -66,7 +66,12 @@ namespace GreenvurcelDAL
                 return false;
             }
         }
-
+        public void InsertCustomerProductWithId(CustomerProduct CustomerProduct)
+        {
+            var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
+            collection.InsertOne(CustomerProduct);
+            ProdcutAdded?.Invoke();
+        }
         public List<CustomerProduct> LoadCustomerProducts()
         {
             try
