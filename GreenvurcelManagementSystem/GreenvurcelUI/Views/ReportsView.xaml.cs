@@ -110,24 +110,13 @@ namespace GreenvurcelUI
                 {
                     if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = new List<Customer>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.FirstName.Contains(filterUpper));
-                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.FirstName.Contains(filterUpper));
-                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.FirstName != null && customer.FirstName.ToLower().Contains(filterLower));
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.FirstName.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.FirstName != null && customer.FirstName.Contains(FilterBox.Text));
                         Customers.ItemsSource = filteredCustomers;
                     }
                 }
@@ -142,24 +131,13 @@ namespace GreenvurcelUI
                 {
                     if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = new List<Customer>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.LastName.Contains(filterUpper));
-                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.LastName.Contains(filterUpper));
-                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.LastName != null && customer.LastName.ToLower().Contains(filterLower));
                         Customers.ItemsSource = filteredCustomers;
-                        }
+                    }
                     else
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.LastName.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.LastName != null && customer.LastName.Contains(FilterBox.Text));
                         Customers.ItemsSource = filteredCustomers;
                     }
                 }
@@ -174,24 +152,13 @@ namespace GreenvurcelUI
                 {
                     if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = new List<Customer>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.HomeCountry.Contains(filterUpper));
-                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.HomeCountry.Contains(filterUpper));
-                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCountry != null && customer.HomeCountry.ToLower().Contains(filterLower));
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
                     {
-                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.HomeCountry.Contains(FilterBox.Text));
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCountry != null && customer.HomeCountry.Contains(FilterBox.Text));
                         Customers.ItemsSource = filteredCustomers;
                     }
                 }
@@ -207,24 +174,34 @@ namespace GreenvurcelUI
                 {
                     if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<Customer> filteredCustomers = new List<Customer>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersUpper = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.Contains(filterUpper));
-                        foreach (Customer filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<Customer> filteredCustomersLower = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.Contains(filterLower));
-                        foreach (Customer filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.ToLower().Contains(filterLower));
                         Customers.ItemsSource = filteredCustomers;
                     }
                     else
                     {
                         List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeState != null && customer.HomeState.Contains(FilterBox.Text));
+                        Customers.ItemsSource = filteredCustomers;
+                    }
+                }
+                else
+                {
+                    Customers.ItemsSource = null;
+                }
+            }
+            else if (selectedFilter == "Home City")
+            {
+                if (FilterBox.Text != "")
+                {
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
+                    {
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCity != null && customer.HomeCity.ToLower().Contains(filterLower));
+                        Customers.ItemsSource = filteredCustomers;
+                    }
+                    else
+                    {
+                        List<Customer> filteredCustomers = customers.FindAll(customer => customer.HomeCity != null && customer.HomeCity.Contains(FilterBox.Text));
                         Customers.ItemsSource = filteredCustomers;
                     }
                 }
@@ -273,7 +250,7 @@ namespace GreenvurcelUI
             }
             foreach (char c in text)
             {
-                if (!char.IsLetter(c) && (!char.IsDigit(c)))
+                if (!char.IsLetter(c) && !char.IsDigit(c) && !char.IsWhiteSpace(c))
                 {
                     return false;
                 }
@@ -304,20 +281,30 @@ namespace GreenvurcelUI
 
         private void DeleteCustomer(object sender, RoutedEventArgs e)
         {
-            Customer customerDetails = (Customer)Customers.SelectedItem;
-            if (CustomMessageBox.Show($"Are you sure you want to delete customer - {customerDetails._id}?", "Delete Customer", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            try
             {
-                bool succeeded = CustomerContext.Instance.DeleteCustomer(customerDetails._id);
-                if (!succeeded)
+                Customer customerDetails = (Customer)Customers.SelectedItem;
+                if(customerDetails != null)
                 {
-                    CustomMessageBox.Show("Unable to connect to databse");
+                    if (CustomMessageBox.Show($"Are you sure you want to delete customer - {customerDetails._id}?", "Delete Customer", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        bool succeeded = CustomerContext.Instance.DeleteCustomer(customerDetails._id);
+                        if (!succeeded)
+                        {
+                            CustomMessageBox.Show("Unable to connect to databse");
+                        }
+                        else
+                        {
+                            LoadCustomers();
+                            CurrentSelectedEmail.Remove(customerDetails._id);
+                            CustomMessageBox.Show("Customer deleted Successfully");
+                        }
+                    }
                 }
-                else
-                {
-                    LoadCustomers();
-                    CurrentSelectedEmail.Remove(customerDetails._id);
-                    CustomMessageBox.Show("Customer deleted Successfully");
-                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Cant delete customer");
             }
         }
 
@@ -329,8 +316,18 @@ namespace GreenvurcelUI
 
         private void ShowProduct(object sender, RoutedEventArgs e)
         {
-            Customer customerDetails = (Customer)Customers.SelectedItem;
-            ShowProdutsRequest?.Invoke(customerDetails._id);
+            try
+            {
+                Customer customerDetails = (Customer)Customers.SelectedItem;
+                if(customerDetails != null)
+                {
+                    ShowProdutsRequest?.Invoke(customerDetails._id);
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Cant show customer products");
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -579,38 +576,51 @@ namespace GreenvurcelUI
         private void EmailsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            Customer customerDataContext = (Customer)comboBox.DataContext;
-            Email customerSelectedItem = (Email)comboBox.SelectedItem;
-            if(customerSelectedItem != null)
+            if(comboBox.Items.Count != 0)
             {
-                string newdefaultEmail = customerSelectedItem.EmailAddress;
-                long id = customerDataContext._id;
-                string oldDefaultEmail;
-                if (CurrentSelectedEmail.TryGetValue(id, out oldDefaultEmail))
+                Customer customerDataContext = (Customer)comboBox.DataContext;
+                Email customerSelectedItem = (Email)comboBox.SelectedItem;
+                if(customerSelectedItem != null)
                 {
-                    CurrentSelectedEmail[id] = newdefaultEmail;
+                    string newdefaultEmail = customerSelectedItem.EmailAddress;
+                    long id = customerDataContext._id;
+                    string oldDefaultEmail;
+                    if (CurrentSelectedEmail.TryGetValue(id, out oldDefaultEmail))
+                    {
+                        CurrentSelectedEmail[id] = newdefaultEmail;
+                    }
+                    //prob
                 }
             }
         }
-        static string UppercaseFirst(string filterBoxText)
+        
+        static string Lowercase(string filterBoxText)
         {
             // Check for empty string.
             if (string.IsNullOrEmpty(filterBoxText))
             {
                 return string.Empty;
             }
-            // Return char and concat substring.
-            return char.ToUpper(filterBoxText[0]) + filterBoxText.Substring(1);
+            // Return string lower.
+            return filterBoxText.ToLower();
         }
-        static string LowercaseFirst(string filterBoxText)
+
+        private void Customers_CopyingRowClipboardContent(object sender, DataGridRowClipboardEventArgs e)
         {
-            // Check for empty string.
-            if (string.IsNullOrEmpty(filterBoxText))
+            //var currentCell = e.ClipboardRowContent[Customers.CurrentCell.Column.DisplayIndex];
+            //e.ClipboardRowContent.Clear();
+            //e.ClipboardRowContent.Add(currentCell);
+        }
+
+        private void DataGridCell_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            DataGridCell cell = sender as DataGridCell;
+            if (cell.IsEditing == false &&
+                ((Keyboard.Modifiers & ModifierKeys.Control) != ModifierKeys.Control)) //So that Ctrl+C keeps working
             {
-                return string.Empty;
+                cell.IsEditing = true;
+                e.Handled = true;
             }
-            // Return char and concat substring.
-            return char.ToLower(filterBoxText[0]) + filterBoxText.Substring(1);
         }
     }
 }

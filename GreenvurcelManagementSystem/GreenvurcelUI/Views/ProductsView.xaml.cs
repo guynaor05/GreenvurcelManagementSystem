@@ -122,25 +122,14 @@ namespace GreenvurcelUI
                 {
                     if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<CustomerProduct> filteredCustomersUpper = products.FindAll(product => product.ProductName != null && product.ProductName.Contains(filterUpper));
-                        foreach (CustomerProduct filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<CustomerProduct> filteredCustomersLower = products.FindAll(product => product.ProductName != null && product.ProductName.Contains(filterUpper));
-                        foreach (CustomerProduct filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
-                        Products.ItemsSource = filteredCustomers;
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<CustomerProduct> filteredProducts = products.FindAll(product => product.ProductName != null && product.ProductName.ToLower().Contains(filterLower));
+                        Products.ItemsSource = filteredProducts;
                     }
                     else
                     {
-                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.ProductName.Contains(FilterBox.Text));
-                        Products.ItemsSource = filteredCustomers;
+                        List<CustomerProduct> filteredProducts = products.FindAll(product => product.ProductName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredProducts;
                     }
                 }
                 else
@@ -154,25 +143,14 @@ namespace GreenvurcelUI
                 {
                     if (ValidateSpaceLetterAndNumber(FilterBox.Text))
                     {
-                        List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<CustomerProduct> filteredCustomersUpper = products.FindAll(product => product.CategoryName != null && product.CategoryName.Contains(filterUpper));
-                        foreach (CustomerProduct filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<CustomerProduct> filteredCustomersLower = products.FindAll(product => product.CategoryName != null && product.CategoryName.Contains(filterLower));
-                        foreach (CustomerProduct filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
-                        Products.ItemsSource = filteredCustomers;
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<CustomerProduct> filteredProducts = products.FindAll(product => product.CategoryName != null && product.CategoryName.ToLower().Contains(filterLower));
+                        Products.ItemsSource = filteredProducts;
                     }
                     else
                     {
-                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CategoryName.Contains(FilterBox.Text));
-                        Products.ItemsSource = filteredCustomers;
+                        List<CustomerProduct> filteredProducts = products.FindAll(product => product.CategoryName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredProducts;
                     }
                 }
                 else
@@ -184,7 +162,7 @@ namespace GreenvurcelUI
             {
                 if (FilterBox.Text != "")
                 {
-                    if (FilterBox.Text == "true" || FilterBox.Text == "false" || FilterBox.Text == "False" || FilterBox.Text == "True")
+                    if (FilterBox.Text.ToLower() == "true" || FilterBox.Text.ToLower() == "false")
                     {
                         List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
                         string filterUpper = UppercaseFirst(FilterBox.Text);
@@ -254,19 +232,29 @@ namespace GreenvurcelUI
 
         private void DeleteCustomerProduct(object sender, RoutedEventArgs e)
         {
-            CustomerProduct customerProduct = (CustomerProduct)Products.SelectedItem;
-            if (CustomMessageBox.Show($"Are you sure you want to delete this Product?", "Delete Product", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            try
             {
-                bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
-                if (!succeeded)
+                CustomerProduct customerProduct = (CustomerProduct)Products.SelectedItem;
+                if(customerProduct != null)
                 {
-                    CustomMessageBox.Show("Unable to connect to databse");
+                    if (CustomMessageBox.Show($"Are you sure you want to delete this Product?", "Delete Product", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
+                        if (!succeeded)
+                        {
+                            CustomMessageBox.Show("Unable to connect to databse");
+                        }
+                        else
+                        {
+                            LoadCustomerProducts();
+                            CustomMessageBox.Show("Product deleted Successfully");
+                        }
+                    }
                 }
-                else
-                {
-                    LoadCustomerProducts();
-                    CustomMessageBox.Show("Product deleted Successfully");
-                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Cant delete product");
             }
         }
 
@@ -357,6 +345,7 @@ namespace GreenvurcelUI
             sheet.Cell("C1").Value = "Last Name";
             sheet.Cell("D1").Value = "Product Name";
             sheet.Cell("E1").Value = "Category Name";
+            sheet.Cell("F1").Value = "Is Object";
             int counter = 2;
             foreach (CustomerProduct item in list)
             {
@@ -365,6 +354,7 @@ namespace GreenvurcelUI
                 sheet.Cell("C" + counter.ToString()).Value = item.LastName;
                 sheet.Cell("D" + counter.ToString()).Value = item.ProductName;
                 sheet.Cell("E" + counter.ToString()).Value = item.CategoryName;
+                sheet.Cell("F" + counter.ToString()).Value = item.IsObject;
                 counter++;
             }
         }
@@ -388,6 +378,16 @@ namespace GreenvurcelUI
                 workbook.SaveAs(System.IO.Path.GetFullPath(dlg.FileName.ToString()));
             }
         }
+        static string Lowercase(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return string lower.
+            return filterBoxText.ToLower();
+        }
         static string UppercaseFirst(string filterBoxText)
         {
             // Check for empty string.
@@ -408,5 +408,7 @@ namespace GreenvurcelUI
             // Return char and concat substring.
             return char.ToLower(filterBoxText[0]) + filterBoxText.Substring(1);
         }
+
+        
     }
 }

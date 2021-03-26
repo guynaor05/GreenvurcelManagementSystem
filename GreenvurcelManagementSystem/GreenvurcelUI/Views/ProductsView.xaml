@@ -26,7 +26,7 @@
                 </Grid>
             </Viewbox>
         </Button>
-        <DataGrid Name="Products" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" IsReadOnly="True" MaxWidth="900" MaxHeight="275" Style="{StaticResource DataGridStyle}">
+        <DataGrid Name="Products" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" MaxWidth="900" MaxHeight="275" Style="{StaticResource DataGridStyle}">
             <DataGrid.Resources>
                 <ContextMenu x:Key="ContextMenuTemplate">
                     <MenuItem Header="Delete Product" Click="DeleteCustomerProduct">
@@ -54,7 +54,13 @@
                 <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}"/>
                 <DataGridTextColumn Width="*" Header="Product" Binding="{Binding ProductName}"/>
                 <DataGridTextColumn Width="*" Header="Category Name" Binding="{Binding CategoryName}"/>
-                <DataGridTextColumn Width="*" Header="Is Object" Binding="{Binding IsObject}"/>
+                <DataGridTemplateColumn Header="Is Object">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox x:Name="isObjectCheckBox" HorizontalAlignment="Center" IsEnabled="False" IsChecked="{Binding IsObject}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
