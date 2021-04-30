@@ -25,6 +25,8 @@ namespace GreenvurcelUI
     /// </summary>
     public partial class ProductsView : UserControl
     {
+        public static event Action<object> CustomerProductDeleted;
+
         private List<CustomerProduct> products;
         public ProductsView()
         {
@@ -39,6 +41,13 @@ namespace GreenvurcelUI
             ReportsView.ShowProdutsRequest += ReportsView_ShowProdutsRequest;
 
             ReportsView.AddProductRequest += ReportsView_AddProductRequest;
+
+            UpdateDetailsView.CustomerProductDeleted += UpdateDetailsView_CustomerProductDeleted;
+        }
+
+        private void UpdateDetailsView_CustomerProductDeleted(object obj)
+        {
+            LoadCustomerProducts();
         }
 
         private void ReportsView_AddProductRequest(long obj)
@@ -164,21 +173,9 @@ namespace GreenvurcelUI
                 {
                     if (FilterBox.Text.ToLower() == "true" || FilterBox.Text.ToLower() == "false")
                     {
-                        List<CustomerProduct> filteredCustomers = new List<CustomerProduct>();
-                        string filterUpper = UppercaseFirst(FilterBox.Text);
-                        List<CustomerProduct> filteredCustomersUpper = products.FindAll(product => product.IsObject.Equals(bool.Parse(filterUpper)));
-                        foreach (CustomerProduct filteredCustomerUpper in filteredCustomersUpper)
-                        {
-                            filteredCustomers.Add(filteredCustomerUpper);
-                        }
-                        string filterLower = LowercaseFirst(FilterBox.Text);
-                        List<CustomerProduct> filteredCustomersLower = products.FindAll(product => product.IsObject.Equals(bool.Parse(filterLower)));
-                        foreach (CustomerProduct filteredCustomerLower in filteredCustomersLower)
-                        {
-                            filteredCustomers.Add(filteredCustomerLower);
-                        }
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomers = products.FindAll(product => product.IsObject.Equals(bool.Parse(filterLower)));
                         Products.ItemsSource = filteredCustomers;
-
                     }
                     else
                     {
@@ -248,6 +245,7 @@ namespace GreenvurcelUI
                         {
                             LoadCustomerProducts();
                             CustomMessageBox.Show("Product deleted Successfully");
+                            CustomerProductDeleted?.Invoke(customerProduct._id);
                         }
                     }
                 }

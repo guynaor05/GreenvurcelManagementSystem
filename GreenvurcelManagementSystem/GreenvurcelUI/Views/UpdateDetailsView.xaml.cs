@@ -21,17 +21,37 @@ namespace GreenvurcelUI
     /// </summary>
     public partial class UpdateDetailsView : UserControl
     {
+        public static event Action<object> CustomerProductDeleted;
+
+        private List<CustomerProduct> products;
+        private List<CustomerProduct> productsForCustomer;
         public UpdateDetailsView()
         {
             InitializeComponent();
+            LoadCustomerProducts();
             BirthDate.DisplayDateEnd = DateTime.Now;
+            
             MainWindow.CustomerUpdateRequest += MainWindow_CustomerUpdateRequest;
+            CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded; ;
+
+            CustomerContext.Instance.CustomerRemoved += Instance_CustomerRemoved;
+
+            ReportsView.ShowProdutsRequest += ReportsView_ShowProdutsRequest;
+
+            ReportsView.AddProductRequest += ReportsView_AddProductRequest;
+
+            ProductsView.CustomerProductDeleted += UpdateDetailsView_CustomerProductDeleted;
+        }
+        private void UpdateDetailsView_CustomerProductDeleted(object obj)
+        {
+            LoadCustomerProducts();
         }
 
         private void MainWindow_CustomerUpdateRequest(long obj)
         {
             CustomerID.Text = obj.ToString();
             UpdateCustomer();
+
         }
 
         //public bool ButtonEnable()
@@ -97,20 +117,7 @@ namespace GreenvurcelUI
             Email EmailToRemove = (Email)button.DataContext;
             Emails.Items.Remove(EmailToRemove);
         }
-        private void CustomerID_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TextBox textBox = (TextBox)sender;
-            //if (!ValidatePhone(textBox.Text))
-            //{
-            //    CustomerID.BorderBrush = Brushes.Red;
-            //    ViewDetails.IsEnabled = false;
-            //}
-            //else
-            //{
-            //    CustomerID.BorderBrush = Brushes.Black;
-            //    ViewDetails.IsEnabled = true;
-            //}
-        }
+       
         private void FirstName_TextChanged(object sender, EventArgs e)
         {
 
@@ -635,6 +642,10 @@ namespace GreenvurcelUI
                 Emails.Items.Clear();
                 CustomerID.Text = "";
                 Notes.Text = "";
+                ProductName.Text = "";
+                Category.Text = "";
+                FilterBox.Text = "";
+                objectCheckBox.IsChecked = false;
                 CustomerID.IsReadOnly = false;
                 IDPanel.Visibility = Visibility.Visible;
                 ViewDetails.Visibility = Visibility.Visible;
@@ -669,12 +680,18 @@ namespace GreenvurcelUI
             Phones.Items.Clear();
             Emails.Items.Clear();
             Notes.Text = "";
+            ProductName.Text = "";
+            Category.Text = "";
+            FilterBox.Text = "";
+            objectCheckBox.IsChecked = false;
             DetailsButtons.Visibility = Visibility.Collapsed;
             UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
         }
         private void ViewDetails_Click(object sender, RoutedEventArgs e)
         {
             UpdateCustomer();
+            LoadCustomerProducts();
+            CustomerIDAdd.Text = CustomerID.Text;
         }
 
         private void UpdateCustomer()
@@ -758,6 +775,287 @@ namespace GreenvurcelUI
             {
                 CustomMessageBox.Show("Invalid input");
             }
+        }
+
+        private void ReportsView_AddProductRequest(long obj)
+        {
+            CustomerID.Text = obj.ToString();
+
+        }
+
+        private void ReportsView_ShowProdutsRequest(long obj)
+        {
+            FilterComboBox.SelectedItem = "CustomerID";
+            FilterBox.Text = obj.ToString();
+            List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CustomerID == long.Parse(FilterBox.Text));
+            Products.ItemsSource = filteredCustomers;
+
+
+        }
+
+        private void Instance_CustomerRemoved()
+        {
+            LoadCustomerProducts();
+        }
+
+        private void Instance_ProdcutAdded()
+        {
+            LoadCustomerProducts();
+        }
+
+        private void LoadCustomerProducts()
+        {
+            products = CustomerProductsContext.Instance.LoadCustomerProducts();
+            if (products == null)
+            {
+                CustomMessageBox.Show("Unable to connect to databse");
+            }
+            else
+            {
+                foreach (CustomerProduct product in products)
+                {
+                    Customer CustomerDeitals = CustomerContext.Instance.LoadCustomerByIdForProduct(product.CustomerID, out bool succeeded);
+                    product.FirstName = CustomerDeitals.FirstName;
+                    product.LastName = CustomerDeitals.LastName;
+                }
+                if(CustomerID.Text != "")
+                {
+                    productsForCustomer = products.FindAll(product => product.CustomerID == long.Parse(CustomerID.Text));
+                    Products.ItemsSource = productsForCustomer;
+                }
+            }
+
+        }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridRow dataGridRow = (DataGridRow)sender;
+            CustomerProduct product = (CustomerProduct)dataGridRow.DataContext;
+            CustomerID.Text = product.CustomerID.ToString();
+        }
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedFilter = ((ComboBoxItem)FilterComboBox.SelectedItem).Content.ToString();
+
+            if (selectedFilter == "Product")
+            {
+                if (FilterBox.Text != "")
+                {
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
+                    {
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<CustomerProduct> filteredProducts = productsForCustomer.FindAll(product => product.ProductName != null && product.ProductName.ToLower().Contains(filterLower));
+                        Products.ItemsSource = filteredProducts;
+                    }
+                    else
+                    {
+                        List<CustomerProduct> filteredProducts = productsForCustomer.FindAll(product => product.ProductName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredProducts;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
+            }
+            if (selectedFilter == "Category Name")
+            {
+                if (FilterBox.Text != "")
+                {
+                    if (ValidateSpaceLetterAndNumber(FilterBox.Text))
+                    {
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<CustomerProduct> filteredProducts = productsForCustomer.FindAll(product => product.CategoryName != null && product.CategoryName.ToLower().Contains(filterLower));
+                        Products.ItemsSource = filteredProducts;
+                    }
+                    else
+                    {
+                        List<CustomerProduct> filteredProducts = productsForCustomer.FindAll(product => product.CategoryName.Contains(FilterBox.Text));
+                        Products.ItemsSource = filteredProducts;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
+            }
+            if (selectedFilter == "Object")
+            {
+                if (FilterBox.Text != "")
+                {
+                    if (FilterBox.Text.ToLower() == "true" || FilterBox.Text.ToLower() == "false")
+                    {
+                        string filterLower = Lowercase(FilterBox.Text);
+                        List<CustomerProduct> filteredCustomers = productsForCustomer.FindAll(product => product.IsObject.Equals(bool.Parse(filterLower)));
+                        Products.ItemsSource = filteredCustomers;
+
+                    }
+                    else
+                    {
+                        Products.ItemsSource = null;
+                    }
+                }
+                else
+                {
+                    Products.ItemsSource = null;
+                }
+            }
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadCustomerProducts();
+        }
+
+        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (CustomerID.Text != "")
+            {
+                if (CustomerContext.Instance.CheckIfIdExist(long.Parse(CustomerID.Text)))
+                {
+                    bool isChecked = (bool)objectCheckBox.IsChecked;
+                    CustomerProduct CustomerProduct = new CustomerProduct
+                    {
+                        CustomerID = long.Parse(CustomerID.Text),
+                        ProductName = ProductName.Text,
+                        CategoryName = Category.Text,
+                        IsObject = isChecked
+                    };
+                    CustomerProductsContext.Instance.InsertCustomerProduct(CustomerProduct);
+                    ProductName.Text = "";
+                    Category.Text = "";
+                    objectCheckBox.IsChecked = false;
+                    CustomMessageBox.Show("Product added Successfully");
+                }
+                else
+                {
+                    CustomMessageBox.Show("Customer Id does not exist");
+                }
+            }
+            else
+            {
+                CustomMessageBox.Show("Customer Id was not given");
+            }
+        }
+
+        private void DeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CustomerProduct customerProduct = (CustomerProduct)Products.SelectedItem;
+                if (customerProduct != null)
+                {
+                    if (CustomMessageBox.Show($"Are you sure you want to delete this Product?", "Delete Product", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        bool succeeded = CustomerProductsContext.Instance.DeleteCustomerProduct(customerProduct._id);
+                        if (!succeeded)
+                        {
+                            CustomMessageBox.Show("Unable to connect to databse");
+                        }
+                        else
+                        {
+                            LoadCustomerProducts();
+                            CustomMessageBox.Show("Product deleted Successfully");
+                            CustomerProductDeleted?.Invoke(customerProduct._id);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                CustomMessageBox.Show("Cant delete product");
+            }
+        }
+
+        private void CustomerID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = CustomerID.Text;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                AddProduct.IsEnabled = false;
+            }
+
+            foreach (char c in text)
+            {
+                if (char.IsDigit(c))
+                {
+                    AddProduct.IsEnabled = true;
+                }
+                else
+                {
+                    AddProduct.IsEnabled = false;
+                }
+            }
+        }
+        private bool ValidateSpaceLetterAndNumber(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c) && (!char.IsDigit(c)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private bool ValidateLetter(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        private bool ValidateNumber(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        static string Lowercase(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return string lower.
+            return filterBoxText.ToLower();
+        }
+        static string UppercaseFirst(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(filterBoxText[0]) + filterBoxText.Substring(1);
+        }
+        static string LowercaseFirst(string filterBoxText)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(filterBoxText))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToLower(filterBoxText[0]) + filterBoxText.Substring(1);
         }
     }
 }

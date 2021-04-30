@@ -26,7 +26,7 @@
                 </Grid>
             </Viewbox>
         </Button>
-        <DataGrid Name="Products" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" MaxWidth="900" MaxHeight="275" Style="{StaticResource DataGridStyle}">
+        <DataGrid Name="Products" Grid.Row="1" Grid.Column="1" MaxWidth="900" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False"  MaxHeight="175" Style="{StaticResource DataGridStyle}">
             <DataGrid.Resources>
                 <ContextMenu x:Key="ContextMenuTemplate">
                     <MenuItem Header="Delete Product" Click="DeleteCustomerProduct">
@@ -64,7 +64,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
-            <GroupBox Header="Add Product" Margin="30 15" Foreground="Black" BorderBrush="Black">
+            <GroupBox Header="Add Product" Foreground="Black" BorderBrush="Black">
                 <Grid Margin="40 10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -100,7 +100,7 @@
                     <Button x:Name="AddProduct" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Content="Add Product" Foreground="#FF383232" Width="150" Background="White" Margin="0 15 0 0" BorderBrush="#FF383232" Click="AddProduct_Click" FontSize="16" />
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Search Product" Margin="30 15" Foreground="Black" BorderBrush="Black">
+            <GroupBox Header="Search Product" Margin="10 0" Foreground="Black" BorderBrush="Black">
                 <StackPanel Margin="50 10" Orientation="Vertical">
                     <TextBlock Text="Filter By" Style="{StaticResource RegistrationPart}" FontSize="16"/>
                     <StackPanel Orientation="Vertical">

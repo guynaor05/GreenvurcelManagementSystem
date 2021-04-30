@@ -40,10 +40,10 @@
                 </Viewbox>
             </Button>
         </StackPanel>
-        <DataGrid Name="Customers" Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" MaxWidth="900" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" Background="White" MaxHeight="375" Style="{StaticResource DataGridStyle}">
+        <DataGrid Name="Customers" Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" MaxWidth="900" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" Background="White" MaxHeight="200" Style="{StaticResource DataGridStyle}">
             <DataGrid.Resources>
                 <ContextMenu x:Key="ContextMenuTemplate">
-                    <MenuItem Header="Update Customer" Click="UpdateCustomer">
+                    <MenuItem Header="View Customer" Click="UpdateCustomer">
                         <MenuItem.Icon>
                             <Viewbox>
                                 <Grid>
@@ -180,8 +180,8 @@
                     <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" Margin="0 0 5 0" FontSize="16"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="FilterButton" Style="{StaticResource ButtonStyle}" Content="Search" Click="FilterButton_Click" Margin="0 15 5 0" Width="125"/>
-                    <Button x:Name="ResetButton" Style="{StaticResource ButtonStyle}" Content="Reset" Click="ResetButton_Click" Margin="5 15 5 0" Width="125"/>
+                    <Button x:Name="FilterButton" Style="{StaticResource ButtonStyle}" Content="Search" Click="FilterButton_Click" Margin="0 15 5 0" Width="150"/>
+                    <Button x:Name="ResetButton" Style="{StaticResource ButtonStyle}" Content="Reset" Click="ResetButton_Click" Margin="5 15 5 0" Width="150"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
