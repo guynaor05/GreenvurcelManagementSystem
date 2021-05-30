@@ -72,7 +72,7 @@ namespace GreenvurcelDAL
             collection.InsertOne(CustomerProduct);
             ProdcutAdded?.Invoke();
         }
-        public List<CustomerProduct> LoadCustomerProducts()
+        public List<CustomerProduct> LoadCustomersProducts()
         {
             try
             {
@@ -85,7 +85,21 @@ namespace GreenvurcelDAL
                 return null;
             }
         }
+        public List<CustomerProduct> LoadCustomerProducts(string id)
+        {
+            try
+            {
+                var collection = _database.GetCollection<CustomerProduct>(COLLECTION_NAME_CUSTOMER_PRODUCTS);
+                List<CustomerProduct> customerProducts = collection.Find(new BsonDocument()).ToList();
+                List<CustomerProduct> filteredCustomers = customerProducts.FindAll(product => product.CustomerID == long.Parse(id));
+                return filteredCustomers;
+            }
+            catch (Exception)
+            {
 
+                return null;
+            }
+        }
         public bool DeleteCustomerProduct(ObjectId id)
         {
             try

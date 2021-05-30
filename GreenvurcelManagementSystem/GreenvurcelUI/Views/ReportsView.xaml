@@ -40,7 +40,7 @@
                 </Viewbox>
             </Button>
         </StackPanel>
-        <DataGrid Name="Customers" Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" MaxWidth="900" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" Background="White" MaxHeight="200" Style="{StaticResource DataGridStyle}">
+        <DataGrid Name="Customers" Margin="10 0 0 0" Grid.Row="1" Grid.Column="1" MaxWidth="900" MaxHeight="200" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" Background="White" Style="{StaticResource DataGridStyle}">
             <DataGrid.Resources>
                 <ContextMenu x:Key="ContextMenuTemplate">
                     <MenuItem Header="View Customer" Click="UpdateCustomer">

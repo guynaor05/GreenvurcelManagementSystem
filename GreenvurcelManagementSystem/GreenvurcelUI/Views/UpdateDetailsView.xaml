@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GreenvurcelUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontWeight="UltraLight" FontFamily="Century Gothic">
-    <Grid>
+    <Grid> 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -18,16 +18,16 @@
         <StackPanel x:Name="IDPanel" Margin="10 5" Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" Grid.ColumnSpan="3">
             <TextBlock Text="Customer ID" Style="{StaticResource RegistrationPart}" Margin="10 0"/>
             <StackPanel Orientation="Horizontal" Margin="10 5">
-                <TextBox x:Name="CustomerID" Style="{StaticResource TextBox}" TextChanged="CustomerID_TextChanged"/>
+                <TextBox x:Name="CustomerID" Style="{StaticResource TextBox}" TextChanged="CustomerID_TextChanged" FontSize="16"/>
                 <Button x:Name="ViewDetails" Content="View Details" Margin="10 0 0 0" FontSize="16" Click="ViewDetails_Click" Style="{StaticResource ButtonStyle}" Width="125"/>
             </StackPanel>
         </StackPanel>
-        <TabControl x:Name="UpdateDetailsTabControl" HorizontalAlignment="Left" Width="800" BorderThickness="0" Margin="0 0 150 0" Grid.Row="1" Grid.Column="0" FontSize="18" Background="{x:Null}" TabStripPlacement="Left" VerticalAlignment="Center" Visibility="Collapsed" >
+        <TabControl x:Name="UpdateDetailsTabControl" HorizontalAlignment="Center" Width="910" BorderThickness="0" Margin="0 0 0 0" Grid.Row="1" Grid.Column="0" FontSize="18" Background="{x:Null}" TabStripPlacement="Left" VerticalAlignment="Center" Visibility="Collapsed" >
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabPanel}">
                     <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
-                <Style TargetType="TabItem" BasedOn="{StaticResource TabItem2}"/>
+                <Style TargetType="TabItem" BasedOn="{StaticResource TabItem}"/>
             </TabControl.Resources>
             <TabItem Header="Personal">
                 <Grid HorizontalAlignment="Center">
@@ -35,21 +35,21 @@
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="First Name" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="FirstName" Style="{StaticResource TextBox}" TextChanged="FirstName_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="FirstName" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Last Name" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="LastName" Style="{StaticResource TextBox}" TextChanged="LastName_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="LastName" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Birth Date" Style="{StaticResource RegistrationPart}"/>
-                                <DatePicker x:Name="BirthDate" Style="{StaticResource DatePicker}" SelectedDateChanged="BirthDate_SelectedDateChanged"/>
+                                <DatePicker x:Name="BirthDate" Style="{StaticResource DatePicker}" />
                             </StackPanel>
                         </StackPanel>
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home Country" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}" TextChanged="HomeCountry_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home State" Style="{StaticResource RegistrationPart}"/>
@@ -57,13 +57,13 @@
                             </StackPanel>
                             <StackPanel  Margin="10 5">
                                 <TextBlock Text="Home City" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" TextChanged="HomeCity_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home Street" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" TextChanged="HomeStreet_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home Postal Code" Style="{StaticResource RegistrationPart}"/>
@@ -79,7 +79,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0 7">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Company Name" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}" TextChanged="CompanyName_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Job" Style="{StaticResource RegistrationPart}"/>
@@ -87,7 +87,7 @@
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work Country" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}" TextChanged="WorkCountry_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0 7">
@@ -97,11 +97,11 @@
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work City" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" TextChanged="WorkCity_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work Street" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" TextChanged="WorkStreet_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0 7">
@@ -118,13 +118,13 @@
                 <Grid HorizontalAlignment="Center">
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Email" Style="{StaticResource RegistrationPart}" FontSize="14"/>
+                            <TextBlock Text="Email" Style="{StaticResource RegistrationPart}" FontSize="16"/>
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                                 <ComboBox x:Name="EmailType" MinWidth="90" FontSize="14" Style="{StaticResource ComboBoxWithTextBox}">
                                     <ComboBoxItem IsSelected="True" Content="Personal"/>
                                     <ComboBoxItem Content="Work"/>
                                 </ComboBox>
-                                <TextBox x:Name="Email" Style="{StaticResource TextBox}" TextChanged="Email_TextChanged" FontSize="14"/>
+                                <TextBox x:Name="Email" Style="{StaticResource TextBox}" FontSize="16"/>
                                 <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Style="{StaticResource ButtonStyleWithOutBorder}" Click="AddEmail_Click">
                                     <Grid>
                                         <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
@@ -189,22 +189,22 @@
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Phone" Style="{StaticResource RegistrationPart}"/>
-                            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                            <TextBlock Text="Phone" Style="{StaticResource RegistrationPart}" Margin="20 0 0 0" FontSize="16"/>
+                            <StackPanel Orientation="Horizontal" Margin="20 0 0 10">
                                 <ComboBox x:Name="PhoneType" MinWidth="80" Style="{StaticResource ComboBoxWithTextBox}">
                                     <ComboBoxItem IsSelected="True" Content="Mobile"/>
                                     <ComboBoxItem Content="Home"/>
                                     <ComboBoxItem Content="Work"/>
                                     <ComboBoxItem Content="Fax"/>
                                 </ComboBox>
-                                <TextBox x:Name="Phone" Style="{StaticResource TextBox}" TextChanged="Phone_TextChanged" FontSize="14"/>
+                                <TextBox x:Name="Phone" Style="{StaticResource TextBox}" FontSize="16"/>
                                 <Button x:Name="AddPhone" Margin="10 0 0 0" ToolTip="Add" Style="{StaticResource ButtonStyleWithOutBorder}" Click="AddPhone_Click">
                                     <Grid>
                                         <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
                                     </Grid>
                                 </Button>
                             </StackPanel>
-                            <ListView x:Name="Phones" Background="White" BorderBrush="White" Foreground="Black" Margin="-2 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
+                            <ListView x:Name="Phones" Background="White" BorderBrush="White" Foreground="Black" Margin="20 10 0 0" HorizontalContentAlignment="Stretch" FontSize="14">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -234,17 +234,17 @@
                 <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0 5">
                     <StackPanel Margin="0 0 300 10" HorizontalAlignment="Center">
                         <TextBlock Text="Grade" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Grade" Style="{StaticResource TextBox}" TextChanged="Grade_TextChanged"/>
+                        <TextBox x:Name="Grade" Style="{StaticResource TextBox}"/>
                     </StackPanel>
                     <StackPanel Margin="0 10" HorizontalAlignment="Center">
                         <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="450" MinHeight="120" MaxHeight="70" AcceptsReturn="True" TextChanged="Notes_TextChanged" BorderBrush="Black"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="450" MinHeight="120" MaxHeight="70" AcceptsReturn="True" BorderBrush="Black"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Products">
                 <StackPanel>
-                    <DataGrid Name="Products" Grid.Row="1" Grid.Column="1" MaxWidth="700" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False"  MaxHeight="115" Style="{StaticResource DataGridStyle}">
+                    <DataGrid Name="Products" Grid.Row="1" Grid.Column="1"  MaxWidth="700" ItemsSource="{Binding}" FontSize="16" AutoGenerateColumns="False" MaxHeight="115" Style="{StaticResource DataGridStyle}">
                         <DataGrid.Resources>
                             <ContextMenu x:Key="ContextMenuTemplate">
                                 <MenuItem Header="Delete Product" Click="DeleteProduct_Click">               
@@ -282,8 +282,8 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
-                        <GroupBox Header="Add Product" Margin="5 15" Foreground="Black" BorderBrush="Black" FontSize="14">
-                            <Grid Margin="0 10">
+                        <GroupBox Header="Add Product" Margin="0 15 20 15" Foreground="Black" BorderBrush="Black" FontSize="18">
+                            <Grid Margin="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="auto"/>
@@ -301,51 +301,38 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Customer ID" Style="{StaticResource RegistrationPart}" FontSize="14" Margin="0 5"/>
-                                <TextBox x:Name="CustomerIDAdd" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBox}" BorderBrush="Black" FontSize="14" Margin="0 5" IsReadOnly="True"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Customer ID" Style="{StaticResource RegistrationPart}" FontSize="16" Margin="0 5"/>
+                                <TextBox x:Name="CustomerIDAdd" Grid.Row="1" Grid.Column="3" Style="{StaticResource TextBox}" BorderBrush="Black" FontSize="16" Margin="0 5" IsReadOnly="True"/>
 
-                                <TextBlock Text="Product Name" Grid.Row="2" Grid.Column="1" Style="{StaticResource RegistrationPart}" FontSize="14" Margin="0 5"/>
-                                <TextBox x:Name="ProductName" Grid.Row="2" Grid.Column="3" Style="{StaticResource TextBox}" FontSize="14" BorderBrush="Black" Margin="0 5"/>
+                                <TextBlock Text="Product Name" Grid.Row="2" Grid.Column="1" Style="{StaticResource RegistrationPart}" FontSize="16" Margin="0 5"/>
+                                <TextBox x:Name="ProductName" Grid.Row="2" Grid.Column="3" Style="{StaticResource TextBox}" FontSize="16" BorderBrush="Black" Margin="0 5"/>
 
-                                <TextBlock Text="Category" Grid.Row="3" Grid.Column="1" Style="{StaticResource RegistrationPart}" FontSize="14" Margin="0 5"/>
+                                <TextBlock Text="Category" Grid.Row="3" Grid.Column="1" Style="{StaticResource RegistrationPart}" FontSize="16" Margin="0 5"/>
                                 <TextBox x:Name="Category" Grid.Row="3" Grid.Column="3" Style="{StaticResource TextBox}" BorderBrush="Black" FontSize="16" Margin="0 5"/>
 
-                                <TextBlock Text="Is Object" Grid.Row="4" Grid.Column="1" Style="{StaticResource RegistrationPart}" FontSize="14" Margin="0 5"/>
+                                <TextBlock Text="Is Object" Grid.Row="4" Grid.Column="1" Style="{StaticResource RegistrationPart}" FontSize="16" Margin="0 5"/>
                                 <CheckBox x:Name="objectCheckBox" Grid.Row="4" Grid.Column="3" Margin="0 5"/>
 
                                 <Separator Grid.Row="1" Grid.RowSpan="4" Grid.Column="2" Margin="10 0 30 0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
 
-                                <Button x:Name="AddProduct" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Content="Add Product" Foreground="#FF383232" Width="150" Background="White" Margin="0 15 0 0" BorderBrush="#FF383232" Click="AddProduct_Click" FontSize="14" />
+                                <Button x:Name="AddProduct" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Content="Add Product" Width="150" Margin="0 15 0 0" Click="AddProduct_Click" FontSize="16" Style="{StaticResource ButtonStyle}"/>
                             </Grid>
                         </GroupBox>
-                        <GroupBox Header="Search Product" Margin="0 15" Width="350" Foreground="Black" BorderBrush="Black" FontSize="14">
-                            <StackPanel Margin="0 10" Orientation="Vertical">
-                                <TextBlock Text="Filter By" Style="{StaticResource RegistrationPart}" FontSize="14"/>
+                        <GroupBox Header="Search Product" Margin="0 15" Width="350" Foreground="Black" BorderBrush="Black" FontSize="18">
+                            <StackPanel Margin="10" Orientation="Vertical">
+                                <TextBlock Text="Filter By" Style="{StaticResource RegistrationPart}" FontSize="16"/>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <ComboBox x:Name="FilterComboBox" FontSize="14" Style="{StaticResource ComboBoxWithTextBox}">
+                                        <ComboBox x:Name="FilterComboBox" FontSize="16" Style="{StaticResource ComboBoxWithTextBox}">
                                             <ComboBoxItem IsSelected="True" Content="Product"/>
                                             <ComboBoxItem Content="Category Name"/>
                                             <ComboBoxItem Content="Object"/>
                                         </ComboBox>
-                                        <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" Margin="0 0 5 0" FontSize="14"/>
+                                        <TextBox x:Name="FilterBox" Style="{StaticResource TextBox}" Margin="0 0 5 0" FontSize="16"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0 15">
-                                        <Button x:Name="FilterButton" Style="{StaticResource ButtonStyle}" Content="Search" Width="150" Margin="0 5 5 0" Click="FilterButton_Click" FontSize="14">
-                                            <!--<Viewbox Height="18" Width="18">
-                                    <Grid>
-                                        <Path Fill="white" Data="M574.099,469.235L437.61,353.434c-3.248-2.709-7.227-4.171-11.266-4.171c-5.643,0-11.018,2.843-14.373,7.606    c-15.533,22.029-34.578,41.087-56.611,56.635c-4.1,2.895-6.816,7.319-7.449,12.143c-0.635,4.828,0.775,9.602,3.975,13.439    l115.873,136.61c7.852,9.422,19.252,14.859,31.23,14.859c10.768,0,21.021-4.324,28.877-12.179l48.98-48.981    c8.346-8.348,12.656-19.241,12.137-30.68C588.46,487.269,583.175,476.8,574.099,469.235z"/>
-                                        <Path Fill="white" Data="M218.399,433.743c57.923,0,112.385-22.559,153.348-63.522c40.965-40.965,63.523-95.423,63.523-153.349    C435.271,97.29,337.983,0,218.399,0C98.814,0,1.53,97.29,1.53,216.872S98.817,433.743,218.399,433.743z M71.81,216.872    c0-80.83,65.759-146.589,146.589-146.589c80.831,0,146.588,65.759,146.588,146.589c0,39.091-15.262,75.885-42.982,103.602    c-27.721,27.718-64.515,42.984-103.606,42.984C137.569,363.461,71.81,297.701,71.81,216.872z"/>
-                                    </Grid>
-                                </Viewbox>-->
-                                        </Button>
-                                        <Button x:Name="ResetButton" Style="{StaticResource ButtonStyle}" Content="Reset" Width="150" Margin="5 5 0 0" Click="ResetButton_Click" FontSize="14">
-                                            <!--<Viewbox  Height="18" Width="18">
-                                    <Grid>
-                                        <Path Fill="white" Data="M408.973,142.689C368.113,101.829,313.785,79.326,256,79.326h-31.717l50.907-51.032L246.826,0L147.68,99.389    l97.852,99.488l28.563-28.093l-50.551-51.396H256c97.198,0,176.275,79.076,176.275,176.275S353.198,471.938,256,471.938    S79.725,392.861,79.725,295.659v-20.031l-40.062,0.004v20.031c0,57.786,22.503,112.113,63.364,152.973    C143.887,489.497,198.215,512,256,512c57.785,0,112.113-22.503,152.973-63.364c40.861-40.861,63.364-95.188,63.364-152.973    S449.834,183.55,408.973,142.689z"/>
-                                    </Grid>
-                                </Viewbox>-->
-                                        </Button>
+                                        <Button x:Name="FilterButton" Style="{StaticResource ButtonStyle}" Content="Search" Width="150" Margin="0 5 5 0" Click="FilterButton_Click" FontSize="16"/>
+                                        <Button x:Name="ResetButton" Style="{StaticResource ButtonStyle}" Content="Reset" Width="150" Margin="5 5 0 0" Click="ResetButton_Click" FontSize="16"/>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>

@@ -31,10 +31,9 @@ namespace GreenvurcelUI
         public ProductsView()
         {
             InitializeComponent();
-
             LoadCustomerProducts();
 
-            CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded; ;
+            CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded;
 
             CustomerContext.Instance.CustomerRemoved += Instance_CustomerRemoved;
 
@@ -43,6 +42,13 @@ namespace GreenvurcelUI
             ReportsView.AddProductRequest += ReportsView_AddProductRequest;
 
             UpdateDetailsView.CustomerProductDeleted += UpdateDetailsView_CustomerProductDeleted;
+        }
+
+        
+        private void Instance_CustomerRemoved(long id)
+        {
+            List<CustomerProduct> productsWithOutRemovedCustomer = products.FindAll(product => product.CustomerID != id);
+            Products.ItemsSource = productsWithOutRemovedCustomer;
         }
 
         private void UpdateDetailsView_CustomerProductDeleted(object obj)
@@ -65,20 +71,14 @@ namespace GreenvurcelUI
 
 
         }
-
-        private void Instance_CustomerRemoved()
-        {
-            LoadCustomerProducts();
-        }
-
         private void Instance_ProdcutAdded()
         {
-            LoadCustomerProducts();
+            LoadCustomerProducts();        
         }
 
         private void LoadCustomerProducts()
         {
-            products = CustomerProductsContext.Instance.LoadCustomerProducts();
+            products = CustomerProductsContext.Instance.LoadCustomersProducts();
             if (products == null)
             {
                 CustomMessageBox.Show("Unable to connect to databse");
@@ -191,7 +191,7 @@ namespace GreenvurcelUI
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadCustomerProducts();
+            Products.ItemsSource = products;
         }
 
         private void AddProduct_Click(object sender, RoutedEventArgs e)
@@ -209,6 +209,7 @@ namespace GreenvurcelUI
                         IsObject = isChecked
                     };
                     var sad = objectCheckBox;
+                    
                     CustomerProductsContext.Instance.InsertCustomerProduct(CustomerProduct);
                     CustomerID.Text = "";
                     ProductName.Text = "";

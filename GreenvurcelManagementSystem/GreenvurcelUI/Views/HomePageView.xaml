@@ -14,7 +14,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Image Width="700" Height="400" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="..\Images\HomePage.jpg"/>
-        <TextBlock Text="Email: info@greenvurcel.com" Grid.Column="0" Grid.Row="1" Foreground="Gray" HorizontalAlignment="Center"/>
+        <Image Width="910" Height="400" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Source="..\Images\HomePage.jpg"/>
+        <TextBlock Text="Email: info@greenvurcel.com" Margin="0 20 0 0" Grid.Column="0" Grid.Row="1" Foreground="Gray" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>

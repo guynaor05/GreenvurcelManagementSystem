@@ -357,7 +357,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="TabItem2" TargetType="{x:Type TabItem}">
+        <Style x:Key="TabItem" TargetType="{x:Type TabItem}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
@@ -441,6 +441,7 @@
         <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
             <!-- Make the border and grid lines a little less imposing -->
             <Setter Property="BorderBrush" Value="#DDDDDD" />
+            <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="HorizontalGridLinesBrush" Value="#DDDDDD" />
             <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
             <Setter Property="RowStyle" Value="{StaticResource DataGridRowStyle}"/>

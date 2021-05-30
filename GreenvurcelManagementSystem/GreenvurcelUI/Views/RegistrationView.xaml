@@ -15,12 +15,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="RegistrationTabControl" BorderThickness="0" Margin="10" Grid.Row="0" Grid.Column="0" FontSize="20" BorderBrush="LightGray" TabStripPlacement="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Width="800">
+        <TabControl x:Name="RegistrationTabControl" BorderThickness="0" Margin="10" Grid.Row="0" Grid.Column="0" FontSize="20" BorderBrush="LightGray" TabStripPlacement="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Width="890">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabPanel}">
                     <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
-                <Style TargetType="TabItem" BasedOn="{StaticResource TabItem2}"/>
+                <Style TargetType="TabItem" BasedOn="{StaticResource TabItem}"/>
             </TabControl.Resources>
             <TabItem Header="Personal">
                 <Grid HorizontalAlignment="Center">
@@ -28,41 +28,41 @@
                         <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="First Name" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="FirstName" Style="{StaticResource TextBox}" TextChanged="FirstName_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="FirstName" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
 
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Last Name" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="LastName" Style="{StaticResource TextBox}" TextChanged="LastName_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="LastName" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
 
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Birth Date" Style="{StaticResource RegistrationPart}"/>
-                                <DatePicker x:Name="BirthDate" DisplayDateEnd="{x:Static sys:DateTime.Now}" Style="{StaticResource DatePicker}" SelectedDateChanged="BirthDate_SelectedDateChanged"/>
+                                <DatePicker x:Name="BirthDate" DisplayDateEnd="{x:Static sys:DateTime.Now}" Style="{StaticResource DatePicker}"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home Country" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}" TextChanged="HomeCountry_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeCountry" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home State" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeState" Style="{StaticResource TextBox}" TextChanged="HomeState_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeState" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel  Margin="10 5">
                                 <TextBlock Text="Home City" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" TextChanged="HomeCity_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeCity" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home Street" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" TextChanged="HomeStreet_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomeStreet" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Home Postal Code" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="HomePostalCode" Style="{StaticResource TextBox}" TextChanged="HomePostalCode_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="HomePostalCode" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -74,7 +74,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Company Name" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}" TextChanged="CompanyName_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="CompanyName" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Job" Style="{StaticResource RegistrationPart}"/>
@@ -82,27 +82,27 @@
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work Country" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}" TextChanged="WorkCountry_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkCountry" Style="{StaticResource TextBox}"  Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work State" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkState" Style="{StaticResource TextBox}" TextChanged="WorkState_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkState" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work City" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" TextChanged="WorkCity_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkCity" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work Street" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" TextChanged="WorkStreet_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkStreet" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
                             <StackPanel Margin="10 5">
                                 <TextBlock Text="Work Postal Code" Style="{StaticResource RegistrationPart}"/>
-                                <TextBox x:Name="WorkPostalCode" Style="{StaticResource TextBox}" TextChanged="WorkPostalCode_TextChanged" Margin="0 0 0 4"/>
+                                <TextBox x:Name="WorkPostalCode" Style="{StaticResource TextBox}" Margin="0 0 0 4"/>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -112,13 +112,13 @@
                 <Grid HorizontalAlignment="Center">
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" Margin="30 0">
-                            <TextBlock Text="Email" Style="{StaticResource RegistrationPart}" FontSize="14"/>
+                            <TextBlock Text="Email" Style="{StaticResource RegistrationPart}" FontSize="16"/>
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                                 <ComboBox x:Name="EmailType" MinWidth="90" FontSize="14" Style="{StaticResource ComboBoxWithTextBox}">
                                     <ComboBoxItem IsSelected="True" Content="Personal"/>
                                     <ComboBoxItem Content="Work"/>
                                 </ComboBox>
-                                <TextBox x:Name="Email" Style="{StaticResource TextBox}" FontSize="14" TextChanged="Email_TextChanged"/>
+                                <TextBox x:Name="Email" Style="{StaticResource TextBox}" FontSize="14"/>
                                 <Button x:Name="AddEmail" Margin="10 0 0 0" ToolTip="Add" Style="{StaticResource ButtonStyleWithOutBorder}" Click="AddEmail_Click">
                                     <Grid>
                                         <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
@@ -183,15 +183,15 @@
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Phone" Style="{StaticResource RegistrationPart}" FontSize="14"/>
+                            <TextBlock Text="Phone" Style="{StaticResource RegistrationPart}" FontSize="16"/>
                             <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                                <ComboBox x:Name="PhoneType" MinWidth="80" FontSize="14" Style="{StaticResource ComboBoxWithTextBox}">
+                                <ComboBox x:Name="PhoneType" MinWidth="90" FontSize="14" Style="{StaticResource ComboBoxWithTextBox}">
                                     <ComboBoxItem IsSelected="True" Content="Mobile"/>
                                     <ComboBoxItem Content="Home"/>
                                     <ComboBoxItem Content="Work"/>
                                     <ComboBoxItem Content="Fax"/>
                                 </ComboBox>
-                                <TextBox x:Name="Phone" Style="{StaticResource TextBox}" FontSize="14" TextChanged="Phone_TextChanged"/>
+                                <TextBox x:Name="Phone" Style="{StaticResource TextBox}" FontSize="16"/>
                                 <Button x:Name="AddPhone" Margin="10 0 0 0" ToolTip="Add" Style="{StaticResource ButtonStyleWithOutBorder}" Click="AddPhone_Click">
                                     <Grid>
                                         <Path Stretch="Fill" Fill="#FF383232" Height="20" Width="20" Data="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"/>
@@ -228,11 +228,11 @@
                 <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0 5" >
                     <StackPanel Margin="65 10" HorizontalAlignment="Left">
                         <TextBlock Text="Grade" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Grade" Style="{StaticResource TextBox}" TextChanged="Grade_TextChanged"/>
+                        <TextBox x:Name="Grade" Style="{StaticResource TextBox}" />
                     </StackPanel>
                     <StackPanel Margin="65 10" HorizontalAlignment="Left">
                         <TextBlock Text="Notes" Style="{StaticResource RegistrationPart}"/>
-                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="450" MinHeight="120" MaxHeight="70" AcceptsReturn="True" TextChanged="Notes_TextChanged" BorderBrush="Black"/>
+                        <TextBox x:Name="Notes" Style="{StaticResource TextBox}" MinWidth="450" MinHeight="120" MaxHeight="70" AcceptsReturn="True" BorderBrush="Black"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>

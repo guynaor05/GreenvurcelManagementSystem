@@ -28,6 +28,7 @@ namespace GreenvurcelUI
             ReportsView.CustomerUpdateRequest += ReportsView_CustomerUpdateRequest;
             ReportsView.AddProductRequest += ReportsView_AddProductRequest;
             ReportsView.ShowProdutsRequest += ReportsView_ShowProdutsRequest;
+
         }
 
         private void ReportsView_ShowProdutsRequest(long obj)
@@ -45,6 +46,5 @@ namespace GreenvurcelUI
             MainTabControl.SelectedItem = UpdateCustomerDetails;
             CustomerUpdateRequest?.Invoke(obj);
         }
-       
     }
 }

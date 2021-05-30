@@ -26,7 +26,7 @@ namespace GreenvurcelDAL
 
         #region Events
         public event Action<long, string> CustomerAdded;
-        public event Action CustomerRemoved;
+        public event Action<long> CustomerRemoved;
         public event Action CustomerUpadted;
         #endregion
 
@@ -146,7 +146,7 @@ namespace GreenvurcelDAL
                 var filterForProducts = Builders<CustomerProduct>.Filter.Eq("CustomerID", id);
                 collection.DeleteOne(filter);
                 collectionForProducts.DeleteMany(filterForProducts);
-                CustomerRemoved?.Invoke();
+                CustomerRemoved?.Invoke(id);
                 return true;
             }
             catch (Exception)

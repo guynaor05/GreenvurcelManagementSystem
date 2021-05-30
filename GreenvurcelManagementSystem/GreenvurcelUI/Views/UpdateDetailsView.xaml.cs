@@ -23,7 +23,6 @@ namespace GreenvurcelUI
     {
         public static event Action<object> CustomerProductDeleted;
 
-        private List<CustomerProduct> products;
         private List<CustomerProduct> productsForCustomer;
         public UpdateDetailsView()
         {
@@ -32,16 +31,19 @@ namespace GreenvurcelUI
             BirthDate.DisplayDateEnd = DateTime.Now;
             
             MainWindow.CustomerUpdateRequest += MainWindow_CustomerUpdateRequest;
-            CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded; ;
+
+            CustomerProductsContext.Instance.ProdcutAdded += Instance_ProdcutAdded;
 
             CustomerContext.Instance.CustomerRemoved += Instance_CustomerRemoved;
 
-            ReportsView.ShowProdutsRequest += ReportsView_ShowProdutsRequest;
-
-            ReportsView.AddProductRequest += ReportsView_AddProductRequest;
-
             ProductsView.CustomerProductDeleted += UpdateDetailsView_CustomerProductDeleted;
         }
+
+        private void Instance_CustomerRemoved(long id)
+        {
+            CancelChanges();
+        }
+
         private void UpdateDetailsView_CustomerProductDeleted(object obj)
         {
             LoadCustomerProducts();
@@ -50,20 +52,11 @@ namespace GreenvurcelUI
         private void MainWindow_CustomerUpdateRequest(long obj)
         {
             CustomerID.Text = obj.ToString();
-            UpdateCustomer();
-
+            LoadCustomer();
+            LoadCustomerProducts();
         }
 
-        //public bool ButtonEnable()
-        //{
-        //    if (!ValidatePhone(CustomerID.Text) || !ValidateNames(FirstName.Text) || !ValidateNames(LastName.Text) || !ValidateContryAndCity(HomeCountry.Text) || !ValidateContryAndCity(HomeCity.Text) || !ValidateStreet(HomeStreet.Text) || !ValidatePhone(Grade.Text) || !ValidateContryAndCity(WorkCountry.Text)
-        //        || !ValidateContryAndCity(WorkCity.Text) || !ValidateStreet(WorkStreet.Text) || !ValidatePhone(PostalCode.Text) || (Phones.Items.Count == 0 || Emails.Items.Count == 0 || BirthDate.SelectedDate == null || !ValidateNotes(Notes.Text) || BirthDate.SelectedDate > DateTime.Now))
-        //    {
-        //        return false;
-
-        //    }
-        //    return true;
-        //}
+        
 
         private void AddPhone_Click(object sender, RoutedEventArgs e)
         {
@@ -100,15 +93,7 @@ namespace GreenvurcelUI
                 Email.Text = "";
                 Emails.Items.Add(person);
             }
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
+            
         }
 
         private void RemoveEmail_Click(object sender, RoutedEventArgs e)
@@ -118,393 +103,10 @@ namespace GreenvurcelUI
             Emails.Items.Remove(EmailToRemove);
         }
        
-        private void FirstName_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateNames(textBox.Text))
-            //{
-            //    FirstName.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    FirstName.BorderBrush = Brushes.Black;
-            //}
-        }
-
-        private void LastName_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateNames(textBox.Text))
-            //{
-            //    LastName.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    LastName.BorderBrush = Brushes.Black;
-            //}
-        }
-
-
-        private void BirthDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //DatePicker datePicker = (DatePicker)sender;
-            //DateTime? selectedDate = datePicker.SelectedDate;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (selectedDate == null || selectedDate > DateTime.Now)
-            //{
-            //    BirthDate.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    BirthDate.BorderBrush = Brushes.Black;
-            //}
-        }
-        private void Grade_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidatePhone(textBox.Text))
-            //{
-            //    Grade.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    Grade.BorderBrush = Brushes.Black;
-            //}
-        }
-
-        private void HomeCountry_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateContryAndCity(textBox.Text))
-            //{
-            //    HomeCountry.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    HomeCountry.BorderBrush = Brushes.Black;
-            //}
-        }
-
-        private void HomeCity_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateContryAndCity(textBox.Text))
-            //{
-            //    HomeCity.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    HomeCity.BorderBrush = Brushes.Black;
-            //}
-        }
-        private void HomeStreet_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateStreet(textBox.Text))
-            //{
-            //    HomeStreet.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    HomeStreet.BorderBrush = Brushes.Black;
-            //}
-        }
-        private void PostalCode_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidatePhone(textBox.Text))
-            //{
-            //    PostalCode.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    PostalCode.BorderBrush = Brushes.Black;
-            //}
-        }
-        private void WorkCountry_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateContryAndCity(textBox.Text))
-            //{
-            //    WorkCountry.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    WorkCountry.BorderBrush = Brushes.Black;
-            //}
-        }
-
-
-        private void WorkCity_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateContryAndCity(textBox.Text))
-            //{
-            //    WorkCity.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    WorkCity.BorderBrush = Brushes.Black;
-            //}
-        }
-
-        private void WorkStreet_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateStreet(textBox.Text))
-            //{
-            //    WorkStreet.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    WorkStreet.BorderBrush = Brushes.Black;
-            //}
-        }
-        private void CompanyName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateContryAndCity(textBox.Text))
-            //{
-            //    CompanyName.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    CompanyName.BorderBrush = Brushes.Black;
-            //}
-        }
-
-        private void Phone_TextChanged(object sender, EventArgs e)
-        {
-
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidatePhone(textBox.Text))
-            //{
-            //    Phone.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    Phone.BorderBrush = Brushes.Black;
-            //}
-        }
-
-        private void Email_TextChanged(object sender, EventArgs e)
-        {
-        //    TextBox textBox = (TextBox)sender;
-        //    if (ButtonEnable())
-        //    {
-        //        UpadteDetailsButton.IsEnabled = true;
-        //    }
-        //    else
-        //    {
-        //        UpadteDetailsButton.IsEnabled = false;
-
-        //    }
-        //    if (!ValidateEmail(textBox.Text))
-        //    {
-        //        Email.BorderBrush = Brushes.Red;
-        //    }
-        //    else
-        //    {
-        //        Email.BorderBrush = Brushes.Black;
-        //    }
-        }
-
-        private void Notes_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TextBox textBox = (TextBox)sender;
-            //if (ButtonEnable())
-            //{
-            //    UpadteDetailsButton.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    UpadteDetailsButton.IsEnabled = false;
-
-            //}
-            //if (!ValidateNotes(textBox.Text))
-            //{
-            //    Notes.BorderBrush = Brushes.Red;
-            //}
-            //else
-            //{
-            //    Notes.BorderBrush = Brushes.Black;
-            //}
-
-        }
 
         #region Validation Methods
-        private bool ValidateNotes(string text)
-        {
-            foreach (char c in text)
-            {
-                if (!char.IsLetter(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        private bool ValidateNames(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return false;
-            }
-
-            foreach (char c in text)
-            {
-                if (!char.IsLetter(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool ValidateContryAndCity(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return false;
-            }
-
-            foreach (char c in text)
-            {
-                if (!char.IsLetter(c) && !char.IsWhiteSpace(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
+        
+        
         private bool ValidateEmail(string email)
         {
             try
@@ -555,24 +157,7 @@ namespace GreenvurcelUI
         }
 
 
-        private bool ValidateStreet(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                return false;
-            }
-
-            foreach (char c in text)
-            {
-                if (!char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
+        
         #endregion
 
 
@@ -622,40 +207,24 @@ namespace GreenvurcelUI
                     Notes = Notes.Text
                 };
                 CustomerContext.Instance.UpdateCustomer(customerID, customer);
-                FirstName.Text = "";
-                LastName.Text = "";
-                BirthDate.Text = "";
-                Grade.Text = "";
-                Job.Text = "";
-                HomeState.Text = "";
-                HomeCountry.Text = "";
-                HomeCity.Text = "";
-                HomeStreet.Text = "";
-                HomePostalCode.Text = "";
-                WorkPostalCode.Text = "";
-                WorkState.Text = "";
-                WorkCountry.Text = "";
-                WorkCity.Text = "";
-                WorkStreet.Text = "";
-                CompanyName.Text = "";
-                Phones.Items.Clear();
-                Emails.Items.Clear();
-                CustomerID.Text = "";
-                Notes.Text = "";
-                ProductName.Text = "";
-                Category.Text = "";
-                FilterBox.Text = "";
-                objectCheckBox.IsChecked = false;
-                CustomerID.IsReadOnly = false;
-                IDPanel.Visibility = Visibility.Visible;
-                ViewDetails.Visibility = Visibility.Visible;
-                DetailsButtons.Visibility = Visibility.Collapsed;
-                UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
+                CancelChanges();
                 CustomMessageBox.Show("Updated Details Successfully");
             }
         }
     
         private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            CancelChanges();
+        }
+        private void ViewDetails_Click(object sender, RoutedEventArgs e)
+        {
+            bool isLoaded = LoadCustomer();
+            if (isLoaded)
+            {
+                LoadCustomerProducts();
+            }
+        }
+        private void CancelChanges()
         {
             IDPanel.Visibility = Visibility.Visible;
             ViewDetails.Visibility = Visibility.Visible;
@@ -687,115 +256,93 @@ namespace GreenvurcelUI
             DetailsButtons.Visibility = Visibility.Collapsed;
             UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
         }
-        private void ViewDetails_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateCustomer();
-            LoadCustomerProducts();
-            CustomerIDAdd.Text = CustomerID.Text;
-        }
-
-        private void UpdateCustomer()
+        private bool LoadCustomer()
         {
             string customerID = CustomerID.Text;
             Customer details = CustomerContext.Instance.LoadCustomerById(customerID, out bool succeeded);
-            if(ValidateNumbers(CustomerID.Text))
+            if (ValidateNumbers(CustomerID.Text))
             {
                 CustomerID.IsReadOnly = true;
                 if (!succeeded)
                 {
-                    IDPanel.Visibility = Visibility.Visible;
-                    ViewDetails.Visibility = Visibility.Collapsed;
-                    UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
-                    ViewDetails.Visibility = Visibility.Visible;
-                    CustomMessageBox.Show("Unable to connect to databse");
-                    CustomerID.IsReadOnly = false;
+                    IfLoadCustomerFails();
+                    return false;
                 }
-                else if (details == null)
+                if (details == null)
                 {
-                    ViewDetails.Visibility = Visibility.Visible;
-                    IDPanel.Visibility = Visibility.Visible;
-                    CustomMessageBox.Show("Customer Id does not exist");
-                    CustomerID.IsReadOnly = false;
-                    DetailsButtons.Visibility = Visibility.Collapsed;
-                    UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
+                    IfLoadCustomerFails();
+                    return false;
                 }
-                else
-                {
-                    ViewDetails.Visibility = Visibility.Collapsed;
-                    UpdateDetailsTabControl.Visibility = Visibility.Visible;
-                    DetailsButtons.Visibility = Visibility.Visible;
-                    FirstName.Text = details.FirstName;
-                    LastName.Text = details.LastName;
-                    BirthDate.Text = details.BirthDate;
-                    Grade.Text = details.Grade;
-                    Job.Text = details.Job;
-                    HomeState.Text = details.HomeState;
-                    HomeCountry.Text = details.HomeCountry;
-                    HomeCity.Text = details.HomeCity;
-                    HomeStreet.Text = details.HomeStreet;
-                    HomePostalCode.Text = details.HomePostalCode;
-                    WorkPostalCode.Text = details.WorkPostalCode;
-                    WorkState.Text = details.WorkState;
-                    WorkCountry.Text = details.WorkCountry;
-                    WorkCity.Text = details.WorkCity;
-                    WorkStreet.Text = details.WorkStreet;
-                    CompanyName.Text = details.CompanyName;
-                    defaultEmailComboBox.Text = details.DefaultEmail;
-                    Phones.Items.Clear();
-                    Emails.Items.Clear();
-                    Notes.Text = details.Notes;
-                    if (details.Phones != null)
-                    {
-                        foreach (Phone phone in details.Phones)
-                        {
-                            Phones.Items.Add(phone);
-                        }
 
-                    }
-
-                    if(details.Emails != null)
-                    {
-                        foreach (Email email in details.Emails)
-                        {
-                            Emails.Items.Add(email);
-                        }
-                    }
-                    //if (ButtonEnable())
-                    //{
-                    //    UpadteDetailsButton.IsEnabled = true;
-                    //}
-                    //else
-                    //{
-                    //    UpadteDetailsButton.IsEnabled = false;
-
-                    //}
-                }
+                LoadCustomerDetails();
+                return true;
             }
-            else
+
+            CustomMessageBox.Show("Invalid input");
+            return false;
+            
+        }
+        private void IfLoadCustomerFails()
+        {
+            ViewDetails.Visibility = Visibility.Visible;
+            IDPanel.Visibility = Visibility.Visible;
+            CustomMessageBox.Show("Customer Id does not exist");
+            CustomerID.IsReadOnly = false;
+            DetailsButtons.Visibility = Visibility.Collapsed;
+            UpdateDetailsTabControl.Visibility = Visibility.Collapsed;
+        }
+        private void LoadCustomerDetails()
+        {
+            string customerID = CustomerID.Text;
+            Customer details = CustomerContext.Instance.LoadCustomerById(customerID, out bool succeeded);
+            if (ValidateNumbers(CustomerID.Text))
             {
-                CustomMessageBox.Show("Invalid input");
+                ViewDetails.Visibility = Visibility.Collapsed;
+                UpdateDetailsTabControl.Visibility = Visibility.Visible;
+                DetailsButtons.Visibility = Visibility.Visible;
+                FirstName.Text = details.FirstName;
+                LastName.Text = details.LastName;
+                BirthDate.Text = details.BirthDate;
+                Grade.Text = details.Grade;
+                Job.Text = details.Job;
+                HomeState.Text = details.HomeState;
+                HomeCountry.Text = details.HomeCountry;
+                HomeCity.Text = details.HomeCity;
+                HomeStreet.Text = details.HomeStreet;
+                HomePostalCode.Text = details.HomePostalCode;
+                WorkPostalCode.Text = details.WorkPostalCode;
+                WorkState.Text = details.WorkState;
+                WorkCountry.Text = details.WorkCountry;
+                WorkCity.Text = details.WorkCity;
+                WorkStreet.Text = details.WorkStreet;
+                CompanyName.Text = details.CompanyName;
+                defaultEmailComboBox.Text = details.DefaultEmail;
+                Phones.Items.Clear();
+                Emails.Items.Clear();
+                Notes.Text = details.Notes;
+                if (details.Phones != null)
+                {
+                    foreach (Phone phone in details.Phones)
+                    {
+                        Phones.Items.Add(phone);
+                    }
+
+                }
+
+                if (details.Emails != null)
+                {
+                    foreach (Email email in details.Emails)
+                    {
+                        Emails.Items.Add(email);
+                    }
+                }
             }
         }
-
-        private void ReportsView_AddProductRequest(long obj)
-        {
-            CustomerID.Text = obj.ToString();
-
-        }
-
-        private void ReportsView_ShowProdutsRequest(long obj)
-        {
-            FilterComboBox.SelectedItem = "CustomerID";
-            FilterBox.Text = obj.ToString();
-            List<CustomerProduct> filteredCustomers = products.FindAll(product => product.CustomerID == long.Parse(FilterBox.Text));
-            Products.ItemsSource = filteredCustomers;
-
-
-        }
-
+       
         private void Instance_CustomerRemoved()
         {
             LoadCustomerProducts();
+            CancelChanges();
         }
 
         private void Instance_ProdcutAdded()
@@ -805,26 +352,25 @@ namespace GreenvurcelUI
 
         private void LoadCustomerProducts()
         {
-            products = CustomerProductsContext.Instance.LoadCustomerProducts();
-            if (products == null)
+            if(CustomerID.Text != "")
             {
-                CustomMessageBox.Show("Unable to connect to databse");
-            }
-            else
-            {
-                foreach (CustomerProduct product in products)
+                productsForCustomer = CustomerProductsContext.Instance.LoadCustomerProducts(CustomerID.Text);
+                if (productsForCustomer == null)
                 {
-                    Customer CustomerDeitals = CustomerContext.Instance.LoadCustomerByIdForProduct(product.CustomerID, out bool succeeded);
-                    product.FirstName = CustomerDeitals.FirstName;
-                    product.LastName = CustomerDeitals.LastName;
+                    CustomMessageBox.Show("Unable to connect to databse");
                 }
-                if(CustomerID.Text != "")
+                else
                 {
-                    productsForCustomer = products.FindAll(product => product.CustomerID == long.Parse(CustomerID.Text));
+                    foreach (CustomerProduct product in productsForCustomer)
+                    {
+                        Customer CustomerDeitals = CustomerContext.Instance.LoadCustomerByIdForProduct(product.CustomerID, out bool succeeded);
+                        product.FirstName = CustomerDeitals.FirstName;
+                        product.LastName = CustomerDeitals.LastName;
+                    }
                     Products.ItemsSource = productsForCustomer;
+                    CustomerIDAdd.Text = CustomerID.Text;
                 }
             }
-
         }
 
         private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -1002,30 +548,6 @@ namespace GreenvurcelUI
             }
             return true;
         }
-        private bool ValidateLetter(string text)
-        {
-            foreach (char c in text)
-            {
-                if (!char.IsLetter(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        private bool ValidateNumber(string text)
-        {
-            foreach (char c in text)
-            {
-                if (!char.IsDigit(c))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
 
         static string Lowercase(string filterBoxText)
         {
@@ -1037,25 +559,6 @@ namespace GreenvurcelUI
             // Return string lower.
             return filterBoxText.ToLower();
         }
-        static string UppercaseFirst(string filterBoxText)
-        {
-            // Check for empty string.
-            if (string.IsNullOrEmpty(filterBoxText))
-            {
-                return string.Empty;
-            }
-            // Return char and concat substring.
-            return char.ToUpper(filterBoxText[0]) + filterBoxText.Substring(1);
-        }
-        static string LowercaseFirst(string filterBoxText)
-        {
-            // Check for empty string.
-            if (string.IsNullOrEmpty(filterBoxText))
-            {
-                return string.Empty;
-            }
-            // Return char and concat substring.
-            return char.ToLower(filterBoxText[0]) + filterBoxText.Substring(1);
-        }
+        
     }
 }
